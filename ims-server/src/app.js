@@ -7,6 +7,7 @@
 
 // require statements
 const express = require('express');
+const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { notFoundHandler, errorHandler } = require('./error-handler');
