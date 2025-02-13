@@ -7,6 +7,7 @@
 
 // require statements
 const express = require('express');
+const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { notFoundHandler, errorHandler } = require('./error-handler');
@@ -16,6 +17,25 @@ const indexRouter = require('./routes/index');
 
 // Variable declaration for the express app
 let app = express();
+
+// Mongoose Connection
+const connectionString = 'mongodb+srv://ims_admin:s3cret@bellevueuniversity.swhfl.mongodb.net/?retryWrites=true&w=majority&appName=BellevueUniversity';
+
+const dbName = 'ims';
+
+//function to connect to mongodb database
+async function connectToDatabase(){
+  try{
+    await mongoose.connect(connectionString, {
+      dbName: dbName,
+    });
+    console.log(`connection to the '${dbName}' database was successful`);
+  } catch(err){
+    console.error(`MongoDb connection err: ${err}`);
+  }
+}
+
+connectToDatabase(); //Call the function to connect to the database
 
 // CORS configuration
 app.use((req, res, next) => {
