@@ -37,12 +37,6 @@ async function connectToDatabase(){
 
 connectToDatabase(); //Call the function to connect to the database
 
-//Close the database connection after all tests
-afterAll(async()=>{
-  await mongoose.connection.close();
-  console.log('Database connection is closing');
-});
-
 // CORS configuration
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); // This allows all origins
