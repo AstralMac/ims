@@ -62,7 +62,7 @@ inventoryItemSchema.pre('save', function(next){
     next();
 })
 
-categorySchema.pre('validate', async function(next){
+inventoryItemSchema.pre('validate', async function(next){
   let doc = this;
 
   if(this.isNew){
@@ -72,7 +72,7 @@ categorySchema.pre('validate', async function(next){
         {$inc: {seq: 1}},
         {new: true, upsert: true}
       );
-      doc.categoryId = counter.seq
+      doc.itemIdId = counter.seq
       next();
       }catch(err){
         console.error('Error in counter.findByIdAndUpdate:', err);
