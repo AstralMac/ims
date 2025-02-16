@@ -45,9 +45,9 @@ let categorySchema = new Schema({
 });
 
 //Custom validator
-gardenSchema.path('name').validate(function(val){
+categorySchema.path('catagoryName').validate(function(val){
     return /^[A-Za-z\s]+$/.test(val); //Only allow letters and spaces
-}, 'Garden name can only contain letters and spaces');
+}, 'catagory name can only contain letters and spaces');
 
 /**
  * Pre-hook/function to increment category ID and update the date of modified documents

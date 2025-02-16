@@ -11,35 +11,32 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { notFoundHandler, errorHandler } = require('./error-handler');
-
-// Importing the index router
-const indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index'); // Path to your index router
+const inventoryItemRouter = require('./src/routes/inventoryItem'); // Correct path to your inventory item router
 
 // Variable declaration for the express app
-let app = express();
+const app = express();
 
 // Mongoose Connection
 const connectionString = 'mongodb+srv://ims_admin:s3cret@bellevueuniversity.swhfl.mongodb.net/?retryWrites=true&w=majority&appName=BellevueUniversity';
-
 const dbName = 'ims';
 
-//function to connect to mongodb database
-async function connectToDatabase(){
-  try{
-    await mongoose.connect(connectionString, {
-      dbName: dbName,
-    });
-    console.log(`connection to the ${dbName} database was successful`);
-  } catch(err){
-    console.error(`MongoDb connection err: ${err}`);
+// Function to connect to MongoDB database
+async function connectToDatabase() {
+  try {
+    await mongoose.connect(connectionString, { dbName: dbName });
+    console.log(`Connection to the ${dbName} database was successful`);
+  } catch (err) {
+    console.error(`MongoDB connection error: ${err}`);
+    process.exit(1); // Exit the process if the connection fails
   }
 }
 
-connectToDatabase(); //Call the function to connect to the database
+connectToDatabase(); // Call the function to connect to the database
 
 // CORS configuration
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*'); // This allows all origins
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Allowed request methods
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'); // Allowed headers
   next();
@@ -53,6 +50,7 @@ app.use(cookieParser());
 
 // Routing configuration
 app.use('/api', indexRouter);
+app.use('/api/inventory', inventoryItemRouter); // Add this line for inventory item routes
 
 // Use the error handling middleware
 app.use(notFoundHandler);
