@@ -72,7 +72,7 @@ inventoryItemSchema.pre('validate', async function(next){
         {$inc: {seq: 1}},
         {new: true, upsert: true}
       );
-      doc.itemIdId = counter.seq
+      doc.itemId = counter.seq
       next();
       }catch(err){
         console.error('Error in counter.findByIdAndUpdate:', err);
