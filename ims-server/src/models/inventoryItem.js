@@ -6,6 +6,8 @@
  */
 
 'use strict';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 //Defining inventory schema
 let inventoryItemSchema = new Schema({
@@ -21,7 +23,10 @@ let inventoryItemSchema = new Schema({
         type: String,
         maxlength: [500, 'Description cannot exceed 500 characters']
     },
-    quantity: {type: Number, required: [true, 'Quantity must be included']},
+    quantity: {
+        type: Number, 
+        required: [true, 'Quantity must be included'],
+        min: [0, 'Quantity cannot be less than 0']},
     price:{
         type: Number,
         required: [true, 'Price is required'],
@@ -32,7 +37,7 @@ let inventoryItemSchema = new Schema({
         default: Date.now
     },
     dateModified:{
-        type: date
+        type: Date
     }
 });
 
@@ -44,5 +49,5 @@ inventoryItemSchema.pre('save', function(next){
 })
 
 module.exports = {
-    Plant: mongoose.model('Inventory-Item', inventoryItemSchema)
+    inventoryItem: mongoose.model('Inventory-Item', inventoryItemSchema)
 }

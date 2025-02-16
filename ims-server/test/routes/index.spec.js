@@ -26,6 +26,6 @@ describe('GET /api', () => {
 
   it('should return the correct message', async () => {
     const response = await request(app).get('/api');
-    expect(response.body).toHaveProperty('message', 'Hello from the Gardening Management System server!');
+    expect(response.body).toHaveProperty('message', 'Hello from the Inventory Management System server!');
   });
 });
