@@ -29,13 +29,19 @@ async function connectToDatabase(){
     await mongoose.connect(connectionString, {
       dbName: dbName,
     });
-    console.log(`connection to the '${dbName}' database was successful`);
+    console.log(`connection to the ${dbName} database was successful`);
   } catch(err){
     console.error(`MongoDb connection err: ${err}`);
   }
 }
 
 connectToDatabase(); //Call the function to connect to the database
+
+//Close the database connection after all tests
+afterAll(async()=>{
+  await mongoose.connection.close();
+  console.log('Database connection is closing');
+});
 
 // CORS configuration
 app.use((req, res, next) => {
