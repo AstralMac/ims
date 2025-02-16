@@ -8,7 +8,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const {Categories} = require('../../src/models/categories');
+const {Categories, Counter} = require('../../src/models/categories');
 
 //Connection to the database
 beforeAll(async ()=> {
@@ -16,6 +16,8 @@ beforeAll(async ()=> {
   try{
     await mongoose.connect(connectionString,{
       dbName: 'ims',
+      useNewUrlParser: true,
+      useUnifiedTopology: true
     });
     console.log('Connection to the database instance was successful.')
   }catch (err){
@@ -25,7 +27,8 @@ beforeAll(async ()=> {
 
 //Clear database before each test
 beforeEach(async()=>{
-  await Categories.deleteMany({})
+  await Categories.deleteMany({});
+  await Counter.deleteMany({});
 });
 
 //Close the database connection after all tests
@@ -36,7 +39,17 @@ afterAll(async()=>{
 
 //Test suite for Categories Model
 describe('Categories Model Test', ()=>{
-it('', async()=>{});
+it('should create a category successfully', async()=>{
+  const categoryData = {
+    categoryName: 'Electronics',
+    description: 'The latest gadgets and appliances',
+  };
+  const category = new Categories(categoryData);
+  const savedCategory = await category.save();
+  expect(savedCategory._id).toBeDefined();
+  expect(savedCategory.name).toBe(categoryData.name)
+  expect(savedCategory.description).toBe(categoryData.description);
+});
 it('', async()=>{});
 it('', async()=>{});
 });

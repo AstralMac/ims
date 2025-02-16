@@ -25,7 +25,7 @@ let categorySchema = new Schema({
     required: true,
     unique: true
   },
-  catgoryName:{
+  categoryName:{
     type: String,
     required: [true, 'Category name is required'],
     minlength: [ 3, 'Category name must be at least 3 characters long'],
@@ -43,6 +43,11 @@ let categorySchema = new Schema({
     type: Date
   }
 });
+
+//Custom validator
+gardenSchema.path('name').validate(function(val){
+    return /^[A-Za-z\s]+$/.test(val); //Only allow letters and spaces
+}, 'Garden name can only contain letters and spaces');
 
 /**
  * Pre-hook/function to increment category ID and update the date of modified documents

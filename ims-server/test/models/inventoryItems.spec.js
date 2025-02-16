@@ -16,7 +16,9 @@ beforeAll(async ()=> {
   const connectionString = 'mongodb+srv://ims_admin:s3cret@bellevueuniversity.swhfl.mongodb.net/?retryWrites=true&w=majority&appName=BellevueUniversity';
   try{
     await mongoose.connect(connectionString,{
-      dbName: 'ims'
+      dbName: 'ims',
+      useNewUrlParser: true,
+      useUnifiedTopology: true
     });
     console.log('Connection to the database instance was successful.')
   }catch (err){
@@ -26,7 +28,7 @@ beforeAll(async ()=> {
 
 //Clear database before each test
 beforeEach(async()=>{
-  await inventoryItem.deleteMany({})
+  await inventoryItem.deleteMany({});
 });
 
 //Close the database connection after all tests
@@ -40,6 +42,7 @@ describe('Inventory Item Model Test', ()=>{
 it('should create a inventory item successfully', async()=>{
   const inventoryItemData = 
    {
+    itemId: 314,
     categoryId: 1000,
     supplierId: 1,
     name: "Laptop",
@@ -77,8 +80,9 @@ it('should fail to create a inventory item with out the required fields', async(
   expect(err.errors['price']).toBeDefined();
   expect(err.errors['quantity']).toBeDefined();
 });
-it('should faile to create an item with a name shorter than 3 characters', async()=>{
+it('should fail to create an item with a name shorter than 3 characters', async()=>{
   const inventoryItemData = {
+        itemId: 314,
         categoryId: 1000,
         supplierId: 1,
         name: "La",
@@ -103,6 +107,7 @@ it('should faile to create an item with a name shorter than 3 characters', async
 });
 it('should failed to create a inventory item name longer than 100 characters ', async()=>{
    const inventoryItemData = {
+        itemId: 314,
         categoryId: 1000,
         supplierId: 1,
         name: "La".repeat(101),
@@ -127,6 +132,7 @@ it('should failed to create a inventory item name longer than 100 characters ', 
 });
 it('should test that only numbers are allowed for price', async()=>{
   const inventoryItemData = {
+    itemId: 314, 
     categoryId: 1000,
     supplierId: 1,
     name: "Laptop",

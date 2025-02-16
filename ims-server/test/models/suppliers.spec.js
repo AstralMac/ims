@@ -15,7 +15,9 @@ beforeAll(async ()=> {
   const connectionString = 'mongodb+srv://ims_admin:s3cret@bellevueuniversity.swhfl.mongodb.net/?retryWrites=true&w=majority&appName=BellevueUniversity';
   try{
     await mongoose.connect(connectionString,{
-      dbName: 'ims'
+      dbName: 'ims',
+      useNewUrlParser: true,
+      useUnifiedTopology: true
     });
     console.log('Connection to the database instance was successful.')
   }catch (err){
@@ -25,7 +27,7 @@ beforeAll(async ()=> {
 
 //Clear database before each test
 beforeEach(async()=>{
-  await Suppliers.deleteMany({})
+  await Suppliers.deleteMany({});
 });
 
 //Close the database connection after all tests
