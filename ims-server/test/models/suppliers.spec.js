@@ -32,7 +32,7 @@ beforeEach(async()=>{
 
 //Close the database connection after all tests
 afterAll(async()=>{
-  await mongoose.connection.close();
+  await mongoose.connection.close(true);
   console.log('Database connection is closing');
 });
 

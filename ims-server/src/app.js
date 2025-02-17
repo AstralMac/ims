@@ -34,9 +34,13 @@ async function connectToDatabase(){
   } catch(err){
     console.error(`MongoDb connection err: ${err}`);
   }
+  return Promise.resolve();
 }
-
-connectToDatabase(); //Call the function to connect to the database
+connectToDatabase();//Call the function to connect to the database when running server
+/*
+beforeAll(async () =>{
+  await connectToDatabase();
+}); //Call the function to connect to the database when testing*/
 
 // CORS configuration
 app.use((req, res, next) => {
