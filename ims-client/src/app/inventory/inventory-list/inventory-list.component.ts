@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { InventoryService } from '../../services/inventory.service';
+import { InventoryService } from '../inventory.service';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-inventory-list',

@@ -1,8 +1,7 @@
-import { InventoryService } from './../../services/inventory.service';
+import { InventoryService } from '../inventory.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { InventoryListComponent } from './inventory-list.component';
-import { InventoryService } from '../../services/inventory.service';
 import { CommonModule } from '@angular/common';
 import { of } from 'rxjs';
 
@@ -13,7 +12,7 @@ describe('InventoryListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InventoryListComponent]
+      imports: [InventoryListComponent, Http]
     })
     .compileComponents();
 

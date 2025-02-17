@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { InventoryComponent } from './inventory.component'; // Import the standalone component
-import { InventoryService } from '../services/inventory.service'; // Ensure this service is imported
+import { InventoryService } from '../inventory.service'; // Ensure this service is imported
 import { CommonModule } from '@angular/common'; // Import CommonModule for ngForOf
 import { of } from 'rxjs';
 
