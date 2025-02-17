@@ -33,7 +33,7 @@ beforeEach(async()=>{
 
 //Close the database connection after all tests
 afterAll(async()=>{
-  await mongoose.connection.close();
+  await mongoose.connection.close(true);
   console.log('Database connection is closing');
 });
 
@@ -50,6 +50,36 @@ it('should create a category successfully', async()=>{
   expect(savedCategory.name).toBe(categoryData.name)
   expect(savedCategory.description).toBe(categoryData.description);
 });
-it('', async()=>{});
-it('', async()=>{});
+it('should validate Cat name correctly', async()=>{
+  const categoryData = {
+    categoryName: 'Electrom!',
+    description: 'The latest and greatest gadgets'
+  };
+  const category = new Categories(categoryData);
+  let err;
+  try{
+    await category.save();
+  }catch (error){
+    err = error; 
+  }
+  expect(err).toBeDefined();
+  expect(err.errors['categoryName']).toBeDefined();
+  expect(err.errors['categoryName'].message).toBe('Garden name can only contain letters and spaces');
+});
+it('should auto-increment categoryId correctly', async()=>{
+  const categoryData1 = {
+    categoryName: 'Electronics',
+    description: 'Newest and latest gadgets'
+  };
+  const categoryData2 = {
+    categoryName: 'Home Goods',
+    description: 'Home decor and Toiletries'
+  }
+  const category1 = new Categories(categoryData1);
+  const savedCategory1 = await category1.save();
+  const category2 = new Categories(categoryData2);
+  const savedCategory2 = await category2.save();
+  expect(savedCategory1.categoryId).toBe(1);
+  expect(savedCategory2.categoryId).toBe(2);
+});
 });

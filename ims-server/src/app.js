@@ -14,6 +14,7 @@ const { notFoundHandler, errorHandler } = require('./error-handler');
 
 // Importing the index router
 const indexRouter = require('./routes/index');
+const createInventoryItemRoute = require('./routes/inventory/create-inventory-item');
 
 // Variable declaration for the express app
 let app = express();
@@ -33,9 +34,13 @@ async function connectToDatabase(){
   } catch(err){
     console.error(`MongoDb connection err: ${err}`);
   }
+  return Promise.resolve();
 }
-
-connectToDatabase(); //Call the function to connect to the database
+connectToDatabase();//Call the function to connect to the database when running server
+/*
+beforeAll(async () =>{
+  await connectToDatabase();
+}); //Call the function to connect to the database when testing*/
 
 // CORS configuration
 app.use((req, res, next) => {
@@ -53,6 +58,7 @@ app.use(cookieParser());
 
 // Routing configuration
 app.use('/api', indexRouter);
+app.use('/api/inventory', createInventoryItemRoute);
 
 // Use the error handling middleware
 app.use(notFoundHandler);
