@@ -22,11 +22,6 @@ const Counter = mongoose.model('Counter', counterSchema);
 let inventoryItemSchema = new Schema({
     categoryId: {type: Number, required:[true, 'Category ID is required']},
     supplierId: {type: Number, required:[true, 'Supplier ID is required']},
-    itemId:{
-      type: Number,
-      required: true,
-      unique: true
-    },
     name: {
         type: String,
         required: [true, 'Inventory item name is required'],
@@ -72,7 +67,7 @@ inventoryItemSchema.pre('validate', async function(next){
         {$inc: {seq: 1}},
         {new: true, upsert: true}
       );
-      doc.itemIdId = counter.seq
+      doc.itemId = counter.seq
       next();
       }catch(err){
         console.error('Error in counter.findByIdAndUpdate:', err);

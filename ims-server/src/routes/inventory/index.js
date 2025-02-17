@@ -1,3 +1,13 @@
+
+/**
+ * Author: Jake Seever
+ * Date: 2/15/25
+ * File: index.js
+ * Description: IMS Inventory API's
+ */
+
+'use strict';
+
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
@@ -82,3 +92,4 @@ router.get('/search/:term', async (req, res) => {
 });
 
 module.exports = router;
+

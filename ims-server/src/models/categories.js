@@ -45,7 +45,8 @@ let categorySchema = new Schema({
 });
 
 //Custom validator
-categorySchema.path('catagoryName').validate(function(val){
+
+categorySchema.path('categoryName').validate(function(val){
     return /^[A-Za-z\s]+$/.test(val); //Only allow letters and spaces
 }, 'catagory name can only contain letters and spaces');
 
