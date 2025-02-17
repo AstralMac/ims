@@ -36,6 +36,8 @@ afterAll(async()=>{
   console.log('Database connection is closing');
 });
 
+
+
 //Test suite for inventoryItems Model
 describe('Supplier Model Test', ()=>{
 it('should fail to create a Supplier name with a name shorter than 3 characters', async()=>{

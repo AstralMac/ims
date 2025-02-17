@@ -22,11 +22,6 @@ const Counter = mongoose.model('Counter', counterSchema);
 let inventoryItemSchema = new Schema({
     categoryId: {type: Number, required:[true, 'Category ID is required']},
     supplierId: {type: Number, required:[true, 'Supplier ID is required']},
-    itemId:{
-      type: Number,
-      required: true,
-      unique: true
-    },
     name: {
         type: String,
         required: [true, 'Inventory item name is required'],

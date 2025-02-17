@@ -6,7 +6,7 @@
  */
 
 'use strict';
-
+/*
 const mongoose = require('mongoose');
 
 //Connection to the database
@@ -36,4 +36,4 @@ afterAll(async()=>{
   console.log('Database connection is closing');
 });
 
-module.exports = mongoConnectionString;
+module.exports = mongoConnectionString;*/
