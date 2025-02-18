@@ -1,3 +1,4 @@
+/*
 const express = require('express');
 const router = express.Router();
 const { InventoryItem } = require('../../models/inventoryItem'); // Adjust the path as necessary
@@ -77,3 +78,4 @@ router.delete('/:itemId', async (req, res, next) => {
 
 // Export the router
 module.exports = router;
+*/

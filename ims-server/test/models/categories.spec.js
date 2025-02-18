@@ -50,7 +50,7 @@ it('should create a category successfully', async()=>{
   expect(savedCategory.name).toBe(categoryData.name)
   expect(savedCategory.description).toBe(categoryData.description);
 });
-it('should validate Cat name correctly', async()=>{
+it('should validate Category name correctly', async()=>{
   const categoryData = {
     categoryName: 'Electrom!',
     description: 'The latest and greatest gadgets'
@@ -64,7 +64,7 @@ it('should validate Cat name correctly', async()=>{
   }
   expect(err).toBeDefined();
   expect(err.errors['categoryName']).toBeDefined();
-  expect(err.errors['categoryName'].message).toBe('Garden name can only contain letters and spaces');
+  expect(err.errors['categoryName'].message).toBe('Category name can only contain letters and spaces');
 });
 it('should auto-increment categoryId correctly', async()=>{
   const categoryData1 = {

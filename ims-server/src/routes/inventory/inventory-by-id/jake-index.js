@@ -30,6 +30,17 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Read inventory item by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const item = await InventoryItem.findById(req.params.id);
+    if (!item) return res.status(404).json({ message: 'Item not found' });
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Create inventory item
 router.post('/', async (req, res) => {
   try {
@@ -41,16 +52,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Read inventory item by ID
-router.get('/:id', async (req, res) => {
-  try {
-    const item = await InventoryItem.findById(req.params.id);
-    if (!item) return res.status(404).json({ message: 'Item not found' });
-    res.json(item);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
 
 // Update inventory item
 router.put('/:id', async (req, res) => {

@@ -31,9 +31,7 @@ async function connectToDatabase() {
     console.log(`Connection to the ${dbName} database was successful`);
   } catch (err) {
     console.error(`MongoDB connection error: ${err}`);
-    process.exit(1); // Exit the process if the connection fails
   }
-  return Promise.resolve();
 }
 
 connectToDatabase();//Call the function to connect to the database when running server
