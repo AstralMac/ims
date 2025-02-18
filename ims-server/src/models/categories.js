@@ -17,7 +17,7 @@ let counterSchema = new Schema({
 });
 
 //Creating the counter model
-const Counter = mongoose.model('Counter', counterSchema);
+const Counter = mongoose.models.Counter||mongoose.model('Counter', counterSchema)
 
 let categorySchema = new Schema({
   categoryId:{
@@ -45,9 +45,10 @@ let categorySchema = new Schema({
 });
 
 //Custom validator
-categorySchema.path('catagoryName').validate(function(val){
+
+categorySchema.path('categoryName').validate(function(val){
     return /^[A-Za-z\s]+$/.test(val); //Only allow letters and spaces
-}, 'catagory name can only contain letters and spaces');
+}, 'Category name can only contain letters and spaces');
 
 /**
  * Pre-hook/function to increment category ID and update the date of modified documents
@@ -76,8 +77,8 @@ categorySchema.pre('validate', async function(next){
 });
 
 module.exports = {
-  Categories: mongoose.model('Categories', categorySchema),
-  Counter: mongoose.model('Counter', counterSchema)
+  Categories: mongoose.models.Categories|| mongoose.model('Categories', categorySchema),
+  Counter 
 };
 
 

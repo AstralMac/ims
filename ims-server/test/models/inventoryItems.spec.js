@@ -17,8 +17,6 @@ beforeAll(async ()=> {
   try{
     await mongoose.connect(connectionString,{
       dbName: 'ims',
-      useNewUrlParser: true,
-      useUnifiedTopology: true
     });
     console.log('Connection to the database instance was successful.')
   }catch (err){
@@ -33,7 +31,7 @@ beforeEach(async()=>{
 
 //Close the database connection after all tests
 afterAll(async()=>{
-  await mongoose.connection.close();
+  await mongoose.connection.close(true);
   console.log('Database connection is closing');
 });
 

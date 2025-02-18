@@ -11,8 +11,11 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { notFoundHandler, errorHandler } = require('./error-handler');
-const indexRouter = require('./routes/index'); // Path to your index router
-const inventoryItemRouter = require('./src/routes/inventoryItem'); // Correct path to your inventory item router
+
+// Importing the index router
+const indexRouter = require('./routes/index');
+const createInventoryItemRoute = require('./routes/inventory/create-inventory-item');
+
 
 // Variable declaration for the express app
 const app = express();
@@ -28,11 +31,15 @@ async function connectToDatabase() {
     console.log(`Connection to the ${dbName} database was successful`);
   } catch (err) {
     console.error(`MongoDB connection error: ${err}`);
-    process.exit(1); // Exit the process if the connection fails
   }
 }
 
-connectToDatabase(); // Call the function to connect to the database
+connectToDatabase();//Call the function to connect to the database when running server
+/*
+beforeAll(async () =>{
+  await connectToDatabase();
+}); //Call the function to connect to the database when testing*/
+
 
 // CORS configuration
 app.use((req, res, next) => {
@@ -50,7 +57,9 @@ app.use(cookieParser());
 
 // Routing configuration
 app.use('/api', indexRouter);
-app.use('/api/inventory', inventoryItemRouter); // Add this line for inventory item routes
+
+app.use('/api/inventory', createInventoryItemRoute); // Add this line for inventory item routes
+
 
 // Use the error handling middleware
 app.use(notFoundHandler);

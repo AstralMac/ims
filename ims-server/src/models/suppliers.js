@@ -17,23 +17,23 @@ let counterSchema = new Schema({
 });
 
 //Creating the counter model
-const Counter = mongoose.model('Counter', counterSchema);
+const Counter = mongoose.models.Counter||mongoose.model('Counter', counterSchema);
 
 let supplierSchema = new Schema({
-  supplierIdId:{
+  supplierId:{
     type: Number,
     required: true,
     unique: true
   },
   supplierName:{
     type: String,
-    required: [true, 'Category name is required'],
-    minlength: [ 3, 'Category name must be at least 3 characters long'],
-    maxlength: [100, 'Category name cannot exceed 100 characters']
+    required: [true, 'Supplier name is required'],
+    minlength: [ 3, 'Supplier name must be at least 3 characters long'],
+    maxlength: [100, 'Supplier name cannot exceed 100 characters']
   },
   contactInformation: {
     type: String,
-    maxlength: [500, 'Description cannot exceed 500 characters']
+    maxlength: [500, 'Contact information cannot exceed 500 characters']
   },
   address: {
     type: String,
@@ -47,6 +47,11 @@ let supplierSchema = new Schema({
     type: Date
   }
 });
+
+//Custom validator
+supplierSchema.path('supplierName').validate(function(val){
+    return /^[A-Za-z\s]+$/.test(val); //Only allow letters and spaces
+}, 'Garden name can only contain letters and spaces');
 
 /**
  * Pre-hook/function to increment category ID and update the date of modified documents
@@ -73,9 +78,8 @@ supplierSchema.pre('validate', async function(next){
     next();
   }
 });
-
 module.exports = {
-  Suppliers: mongoose.model('Suppliers', supplierSchema),
-  Counter: mongoose.model('Counter', counterSchema)
+  Suppliers: mongoose.models.Suppliers||mongoose.model('Suppliers', supplierSchema),
+  Counter
 };
 
