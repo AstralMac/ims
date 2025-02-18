@@ -17,7 +17,7 @@ let counterSchema = new Schema({
 });
 
 //Creating the counter model
-const Counter = mongoose.model('Counter', counterSchema);
+const Counter = mongoose.models.Counter||mongoose.model('Counter', counterSchema);
 
 let supplierSchema = new Schema({
   supplierId:{
@@ -78,9 +78,8 @@ supplierSchema.pre('validate', async function(next){
     next();
   }
 });
-
 module.exports = {
-  Suppliers: mongoose.model('Suppliers', supplierSchema),
-  Counter: mongoose.model('Counter', counterSchema)
+  Suppliers: mongoose.models.Suppliers||mongoose.model('Suppliers', supplierSchema),
+  Counter
 };
 

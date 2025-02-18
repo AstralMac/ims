@@ -11,21 +11,24 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
+const {InventoryItem} = require('../../models/inventoryItem');
+const Ajv = require ('ajv');
+const {addInventoryItemSchema, updateInventoryItemSchema} = require('../../scripts/schemas');
+const createError = require('http-errors');
 
-// Define the inventory item schema
-const inventoryItemSchema = new mongoose.Schema({
-  categoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
-  supplierId: { type: mongoose.Schema.Types.ObjectId, ref: 'Supplier', required: true },
-  name: { type: String, required: true, unique: true },
-  description: String,
-  quantity: { type: Number, required: true, min: 0 },
-  price: { type: Number, required: true, min: 0 },
-  dateCreated: { type: Date, default: Date.now },
-  dateModified: { type: Date, default: Date.now }
+const ajv = new Ajv();
+const validateAddInventoryItem = ajv.compile(addInventoryItemSchema);
+const validateUpdateInventoryItem = ajv.compile(updateInventoryItemSchema);
+
+// List all inventory items
+router.get('/', async (req, res) => {
+  try {
+    const items = await InventoryItem.find();
+    res.json(items);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
-
-// Create the model
-const InventoryItem = mongoose.model('InventoryItem', inventoryItemSchema);
 
 // Create inventory item
 router.post('/', async (req, res) => {
@@ -71,15 +74,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// List all inventory items
-router.get('/', async (req, res) => {
-  try {
-    const items = await InventoryItem.find();
-    res.json(items);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+
 
 // Search inventory items
 router.get('/search/:term', async (req, res) => {

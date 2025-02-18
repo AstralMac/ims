@@ -17,7 +17,7 @@ let counterSchema = new Schema({
 });
 
 //Creating the counter model
-const Counter = mongoose.model('Counter', counterSchema);
+const Counter = mongoose.models.Counter||mongoose.model('Counter', counterSchema)
 
 let categorySchema = new Schema({
   categoryId:{
@@ -77,8 +77,8 @@ categorySchema.pre('validate', async function(next){
 });
 
 module.exports = {
-  Categories: mongoose.model('Categories', categorySchema),
-  Counter: mongoose.model('Counter', counterSchema)
+  Categories: mongoose.models.Categories|| mongoose.model('Categories', categorySchema),
+  Counter 
 };
 
 

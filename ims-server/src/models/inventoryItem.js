@@ -16,7 +16,7 @@ let counterSchema = new Schema({
 });
 
 //Creating the counter model
-const Counter = mongoose.model('Counter', counterSchema);
+const Counter = mongoose.models.Counter||mongoose.model('Counter', counterSchema)
 
 //Defining inventory schema
 let inventoryItemSchema = new Schema({
@@ -57,29 +57,8 @@ inventoryItemSchema.pre('save', function(next){
     next();
 })
 
-inventoryItemSchema.pre('validate', async function(next){
-  let doc = this;
-
-  if(this.isNew){
-    try{
-      const counter= await Counter.findByIdAndUpdate(
-        {_id: 'itemId'},
-        {$inc: {seq: 1}},
-        {new: true, upsert: true}
-      );
-      doc.itemId = counter.seq
-      next();
-      }catch(err){
-        console.error('Error in counter.findByIdAndUpdate:', err);
-        next(err);
-    }
-  }else{
-    doc.dateModified = new Date();
-    next();
-  }
-});
 
 module.exports = {
-    inventoryItem: mongoose.model('Inventory-Item', inventoryItemSchema),
-    Counter: mongoose.model('Counter', counterSchema)
+    inventoryItem: mongoose.models.inventoryItem || mongoose.model('Inventory-Item', inventoryItemSchema),
+    Counter
 }
