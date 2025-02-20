@@ -24,19 +24,6 @@ const app = express();
 const connectionString = 'mongodb+srv://ims_admin:s3cret@bellevueuniversity.swhfl.mongodb.net/?retryWrites=true&w=majority&appName=BellevueUniversity';
 const dbName = 'ims';
 
-// Function to connect to MongoDB database
-async function connectToDatabase() {
-  try {
-    await mongoose.connect(connectionString, { dbName: dbName });
-    console.log(`Connection to the ${dbName} database was successful`);
-  } catch (err) {
-    console.error(`MongoDB connection error: ${err}`);
-    process.exit(1); // Exit the process if the connection fails
-  }
-  return Promise.resolve();
-}
-
-connectToDatabase();//Call the function to connect to the database when running server
 /*
 beforeAll(async () =>{
   await connectToDatabase();
@@ -66,6 +53,18 @@ app.use('/api/inventory', createInventoryItemRoute); // Add this line for invent
 // Use the error handling middleware
 app.use(notFoundHandler);
 app.use(errorHandler);
+
+// Function to connect to MongoDB database
+async function connectToDatabase() {
+  try {
+    await mongoose.connect(connectionString, { dbName: dbName });
+    console.log(`Connection to the ${dbName} database was successful`);
+  } catch (err) {
+    console.error(`MongoDB connection error: ${err}`);
+  }
+}
+
+connectToDatabase();//Call the function to connect to the database when running server
 
 // Export the app
 module.exports = app;

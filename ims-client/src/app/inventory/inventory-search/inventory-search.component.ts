@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-inventory-add',
+  selector: 'app-inventory-search',
   standalone: true,
   imports: [],
   template: `
-  <div class= "addInventory"></div>
+    <p>
+      inventory-search works!
+    </p>
   `,
   styles: ``
 })
-export class InventoryAddComponent {
+export class InventorySearchComponent {
 
 }

@@ -17,8 +17,6 @@ beforeAll(async ()=> {
   try{
     await mongoose.connect(connectionString,{
       dbName: 'ims',
-      useNewUrlParser: true,
-      useUnifiedTopology: true
     });
     console.log('Connection to the database instance was successful.')
   }catch (err){
