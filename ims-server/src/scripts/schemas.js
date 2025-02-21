@@ -76,7 +76,6 @@ const updateInventoryItemSchema = {
         quantity: { type: 'number', minimum: 0 },
         price: { type: 'number', minimum: 0 }
     },
-    required: ['name', 'categoryId', 'supplierId', 'quantity', 'price'],
     additionalProperties: false
 };
 

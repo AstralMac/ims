@@ -11,9 +11,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-const {InventoryItem} = require('../../models/inventoryItem');
+const {inventoryItem} = require('../../../models/inventoryItem');
 const Ajv = require ('ajv');
-const {addInventoryItemSchema, updateInventoryItemSchema} = require('../../scripts/schemas');
+const {addInventoryItemSchema, updateInventoryItemSchema} = require('../../../scripts/schemas');
 const createError = require('http-errors');
 
 const ajv = new Ajv();
@@ -23,7 +23,7 @@ const validateUpdateInventoryItem = ajv.compile(updateInventoryItemSchema);
 // List all inventory items
 router.get('/', async (req, res) => {
   try {
-    const items = await InventoryItem.find();
+    const items = await inventoryItem.find();
     res.json(items);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
 // Read inventory item by ID
 router.get('/:id', async (req, res) => {
   try {
-    const item = await InventoryItem.findById(req.params.id);
+    const item = await inventoryItem.findById(req.params.id);
     if (!item) return res.status(404).json({ message: 'Item not found' });
     res.json(item);
   } catch (error) {
@@ -44,7 +44,7 @@ router.get('/:id', async (req, res) => {
 // Create inventory item
 router.post('/', async (req, res) => {
   try {
-    const newItem = new InventoryItem(req.body);
+    const newItem = new inventoryItem(req.body);
     const item = await newItem.save();
     res.status(201).json(item);
   } catch (error) {
@@ -56,7 +56,7 @@ router.post('/', async (req, res) => {
 // Update inventory item
 router.put('/:id', async (req, res) => {
   try {
-    const item = await InventoryItem.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const item = await inventoryItem.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!item) return res.status(404).json({ message: 'Item not found' });
     res.json(item);
   } catch (error) {
@@ -67,7 +67,7 @@ router.put('/:id', async (req, res) => {
 // Delete inventory item
 router.delete('/:id', async (req, res) => {
   try {
-    const item = await InventoryItem.findByIdAndDelete(req.params.id);
+    const item = await inventoryItem.findByIdAndDelete(req.params.id);
     if (!item) return res.status(404).json({ message: 'Item not found' });
     res.status(204).end();
   } catch (error) {
@@ -80,7 +80,7 @@ router.delete('/:id', async (req, res) => {
 // Search inventory items
 router.get('/search/:term', async (req, res) => {
   try {
-    const items = await InventoryItem.find({ name: new RegExp(req.params.term, 'i') });
+    const items = await inventoryItem.find({ name: new RegExp(req.params.term, 'i') });
     res.json(items);
   } catch (error) {
     res.status(500).json({ message: error.message });

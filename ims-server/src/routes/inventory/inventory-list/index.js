@@ -1,18 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const { InventoryItem } = require('../../models/inventoryItem'); // Adjust the path as necessary
+const { inventoryItem } = require('../../../models/inventoryItem'); // Adjust the path as necessary
 
 // Route to get all inventory items
 router.get('/', async (req, res, next) => {
   try {
-    const inventoryItems = await InventoryItem.find({});
-    res.send(inventoryItems);
+    const InventoryItems = await inventoryItem.find({});
+    res.send(InventoryItems);
   } catch (err) {
     console.error(`Error while getting inventory items: ${err}`);
     next(err);
   }
 });
-
+/*
 // Route to get an inventory item by ID
 router.get('/:id', async (req, res, next) => {
   try {
@@ -61,7 +61,7 @@ router.patch('/:id', async (req, res, next) => {
   }
 });
 
-
+*/
 
 // Export the router
 module.exports = router;

@@ -16,6 +16,9 @@ const { notFoundHandler, errorHandler } = require('./error-handler');
 const indexRouter = require('./routes/index');
 const createInventoryItemRoute = require('./routes/inventory/create-inventory-item');
 const deleteInventoryItemRouter= require('./routes/inventory/delete-inventory');
+const inventoryByIdRouter = require('./routes/inventory/inventory-by-id');
+const inventoryListRouter = require('./routes/inventory/inventory-list');
+const updateInventoryItemRouter = require('./routes/inventory/update-inventory');
 
 
 // Variable declaration for the express app
@@ -49,6 +52,9 @@ app.use(cookieParser());
 app.use('/api', indexRouter);
 app.use('/api/inventory', deleteInventoryItemRouter); //Add this line for inventroy delete routes
 app.use('/api/inventory', createInventoryItemRoute); // Add this line for inventory item routes
+app.use('/api/inventory', inventoryByIdRouter); // Add this line for inventory item by ID routes
+app.use('/api/inventory', inventoryListRouter); // Add this line for inventory list routes
+app.use('/api/inventory', updateInventoryItemRouter); // Add this line for inventory update routes
 
 
 // Use the error handling middleware

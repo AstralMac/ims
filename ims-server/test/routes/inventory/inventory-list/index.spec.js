@@ -1,18 +1,9 @@
-<<<<<<< Updated upstream
-'use strict';
-const request = require('supertest');
-const app = require('../../../../src/app');
-const {inventoryItem} = require('../../../../src/models/inventoryItem');
-
-// Mock the Inventory Item schema Model
-jest.mock('../../../../src/models/inventoryItem');
-=======
-/*const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require('../../../../src/app'); // Adjust the path to app.js
-const inventoryItem = require('../../../../src/models/inventoryItem');
+const {inventoryItem} = require('../../../../src/models/inventoryItem');
+
 jest.mock('../../../../src/models/inventoryItem'); // Mock the InventoryItem model
->>>>>>> Stashed changes
 
 describe('Inventory API', () => {
   describe('GET /api/inventory', () => {
@@ -29,10 +20,27 @@ describe('Inventory API', () => {
       const response = await request(app).get('/api/inventory');
       expect(response.status).toBe(500);
     });
+
+    it('should return an empty array when there are no inventory items', async () => {
+    inventoryItem.find.mockResolvedValue([]); // Mocking an empty result
+    const response = await request(app).get('/api/inventory');
+    expect(response.status).toBe(200);
+    expect(Array.isArray(response.body)).toBe(true);
+    expect(response.body.length).toBe(0);
+    });
+
+    it('should handle errors', async () => {
+    inventoryItem.find.mockRejectedValue(new Error('Database error'));
+    const response = await request(app).get('/api/inventory');
+    expect(response.status).toBe(500);
+    expect(response.body.message).toBe('Database error'); //  error handling returns
+    });
+
   });
  
 
-  /*describe('POST /api/inventory', () => {
+  /*
+  describe('POST /api/inventory', () => {
     it('should create an inventory item successfully', async () => {
       inventoryItem.prototype.save.mockResolvedValue({ Id: 1 }); // Mock the save method
       const response = await request(app).post('/api/inventory').send({
@@ -81,24 +89,6 @@ describe('Inventory API', () => {
       expect(response.status).toBe(400);
       expect(response.body.message).toContain('Validation failed');
     });
-<<<<<<< Updated upstream
   });
-
-  describe('DELETE /api/inventory/:itemId', () => {
-    it('should delete an inventory item successfully', async () => {
-      InventoryItem.deleteOne.mockResolvedValue({ deletedCount: 1 }); // Mock the deleteOne method
-      const response = await request(app).delete('/api/inventory/1');
-      expect(response.status).toBe(200);
-      expect(response.body.message).toBe('Inventory item deleted successfully');
-    });
-
-    it('should handle errors', async () => {
-      InventoryItem.deleteOne.mockRejectedValue(new Error('Database error')); // Mock an error
-      const response = await request(app).delete('/api/inventory/1');
-      expect(response.status).toBe(500);
-    });
-  });
-});
-=======
-  });*/
->>>>>>> Stashed changes
+  
+  */});
