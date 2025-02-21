@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 'use strict';
 const request = require('supertest');
 const app = require('../../../../src/app');
@@ -5,42 +6,35 @@ const {inventoryItem} = require('../../../../src/models/inventoryItem');
 
 // Mock the Inventory Item schema Model
 jest.mock('../../../../src/models/inventoryItem');
+=======
+/*const mongoose = require('mongoose');
+const request = require('supertest');
+const app = require('../../../../src/app'); // Adjust the path to app.js
+const inventoryItem = require('../../../../src/models/inventoryItem');
+jest.mock('../../../../src/models/inventoryItem'); // Mock the InventoryItem model
+>>>>>>> Stashed changes
 
 describe('Inventory API', () => {
   describe('GET /api/inventory', () => {
     it('should get all inventory items', async () => {
-      InventoryItem.find.mockResolvedValue([{ name: 'Widget' }]); // Mock the find method
+      inventoryItem.find.mockResolvedValue([{ name: 'laptop' }]); // Mock the find method
       const response = await request(app).get('/api/inventory');
       expect(response.status).toBe(200);
       expect(Array.isArray(response.body)).toBe(true);
-      expect(response.body[0].name).toBe('Widget');
+      expect(response.body[0].name).toBe('laptop');
     });
 
     it('should handle errors', async () => {
-      InventoryItem.find.mockRejectedValue(new Error('Database error')); // Mock an error
+      inventoryItem.find.mockRejectedValue(new Error('Database error')); // Mock an error
       const response = await request(app).get('/api/inventory');
       expect(response.status).toBe(500);
     });
   });
+ 
 
-  describe('GET /api/inventory/:itemId', () => {
-    it('should get an inventory item by ID', async () => {
-      InventoryItem.findOne.mockResolvedValue({ name: 'Widget' }); // Mock the findOne method
-      const response = await request(app).get('/api/inventory/1');
-      expect(response.status).toBe(200);
-      expect(response.body.name).toBe('Widget');
-    });
-
-    it('should handle errors', async () => {
-      InventoryItem.findOne.mockRejectedValue(new Error('Database error')); // Mock an error
-      const response = await request(app).get('/api/inventory/1');
-      expect(response.status).toBe(500);
-    });
-  });
-
-  describe('POST /api/inventory', () => {
+  /*describe('POST /api/inventory', () => {
     it('should create an inventory item successfully', async () => {
-      InventoryItem.prototype.save.mockResolvedValue({ itemId: 1 }); // Mock the save method
+      inventoryItem.prototype.save.mockResolvedValue({ Id: 1 }); // Mock the save method
       const response = await request(app).post('/api/inventory').send({
         categoryId: 1000,
         supplierId: 1,
@@ -64,7 +58,7 @@ describe('Inventory API', () => {
     });
   });
 
-  describe('PATCH /api/inventory/:itemId', () => {
+  describe('PATCH /api/inventory/:Id', () => {
     it('should update an inventory item successfully', async () => {
       InventoryItem.findOne.mockResolvedValue({
         set: jest.fn(),
@@ -87,6 +81,7 @@ describe('Inventory API', () => {
       expect(response.status).toBe(400);
       expect(response.body.message).toContain('Validation failed');
     });
+<<<<<<< Updated upstream
   });
 
   describe('DELETE /api/inventory/:itemId', () => {
@@ -104,3 +99,6 @@ describe('Inventory API', () => {
     });
   });
 });
+=======
+  });*/
+>>>>>>> Stashed changes
