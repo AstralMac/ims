@@ -15,6 +15,7 @@ const { notFoundHandler, errorHandler } = require('./error-handler');
 // Importing the index router
 const indexRouter = require('./routes/index');
 const createInventoryItemRoute = require('./routes/inventory/create-inventory-item');
+const deleteInventoryItemRouter= require('./routes/inventory/delete-inventory');
 
 
 // Variable declaration for the express app
@@ -46,7 +47,7 @@ app.use(cookieParser());
 
 // Routing configuration
 app.use('/api', indexRouter);
-
+app.use('/api/inventory', deleteInventoryItemRouter); //Add this line for inventroy delete routes
 app.use('/api/inventory', createInventoryItemRoute); // Add this line for inventory item routes
 
 
