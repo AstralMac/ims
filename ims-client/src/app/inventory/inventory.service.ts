@@ -9,6 +9,7 @@ import { UpdateInventoryDTO, AddInventoryDTO } from './inventory';
   providedIn: 'root' // Makes the service available globally
 })
 export class InventoryService {
+  deleteItem: any;
   constructor(private http: HttpClient) {}
 
   // Fetch all inventory items

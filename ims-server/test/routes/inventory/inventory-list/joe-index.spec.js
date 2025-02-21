@@ -1,8 +1,10 @@
-/* const mongoose = require('mongoose');
+'use strict';
 const request = require('supertest');
-const app = require('../../../src/app'); // Adjust the path to app.js
-const { inventoryItem: InventoryItem } = require('../../../src/models/inventoryItem'); // Adjust the path if necessary
-jest.mock('../../../src/models/inventoryItem'); // Mock the InventoryItem model
+const app = require('../../../../src/app');
+const {inventoryItem} = require('../../../../src/models/inventoryItem');
+
+// Mock the Inventory Item schema Model
+jest.mock('../../../../src/models/inventoryItem');
 
 describe('Inventory API', () => {
   describe('GET /api/inventory', () => {
@@ -102,4 +104,3 @@ describe('Inventory API', () => {
     });
   });
 });
-*/
