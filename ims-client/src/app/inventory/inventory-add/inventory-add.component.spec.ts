@@ -21,7 +21,7 @@ describe('InventoryAddComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         InventoryAddComponent
-      ],
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(InventoryAddComponent);

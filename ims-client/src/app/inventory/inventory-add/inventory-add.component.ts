@@ -1,4 +1,3 @@
-import { InventoryListComponent } from './../inventory-list/inventory-list.component';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -53,10 +52,10 @@ import { AddInventoryDTO } from '../../inventory/inventory';
           <label for='dateCreated' class = 'form-label'>Date Created</label>
           <input type='datetime-local' id='dateCreated' class= 'form-control' formControlName='dateCreated'>
         </div>
+        <br />
+        <button type= 'submit' class='btn btn-primary' (click)='onSubmit()'>Add To Inventory</button>
       </form>
     </div>
-    <br />
-        <button type= 'submit' class='btn btn-primary' (click)='onSubmit()'>Add To Inventory</button>
     <br />
     <a class='inventory-list-link' routerLink='/inventory'>View Inventory List</a>
   </div>

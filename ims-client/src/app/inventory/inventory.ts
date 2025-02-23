@@ -6,16 +6,16 @@
  */
 
 export interface inventoryItems{
-  _id: string;
-  supplierId: number;
-  categoryId: number;
-  name: string;
+  _id?: string;
+  supplierId?: number;
+  categoryId?: number;
+  name?: string;
   description?: string;
-  quantity: number;
-  price: number;
+  quantity?: number;
+  price?: number;
   dateCreated?: string | Date;
   dateModified?: string | Date;
 }
-export type UpdateInventoryDTO = Omit<inventoryItems, '_id'| 'dateCreated'|'categoryId'>;
+export type UpdateInventoryDTO = Omit<inventoryItems, 'dateCreated'|'categoryId'>;
 
 export type AddInventoryDTO = Omit<inventoryItems, '_id'| 'dateModified'>;
