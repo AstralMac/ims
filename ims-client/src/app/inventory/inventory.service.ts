@@ -13,7 +13,7 @@ export class InventoryService {
   constructor(private http: HttpClient) {}
 
   // Fetch all inventory items
-  getInventory(){
+  getInventory(): Observable<inventoryItems[]> {
     return this.http.get<inventoryItems[]>(`${environment.apiBaseUrl}/api/inventory`);
   }
 

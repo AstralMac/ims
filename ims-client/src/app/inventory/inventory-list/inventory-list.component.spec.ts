@@ -39,10 +39,17 @@ describe('InventoryListComponent', () => {
 
   // ✅ Test 2: Should fetch inventory list
   it('should fetch inventory list', () => {
-    const mockInventory = [{ name: 'Item A', price: 100 }];
+    const mockInventory = [{
+      _id: '5454f5d5f45df45w4f5w4f5wf',
+      supplierId: 1,
+      categoryId: 1,
+      name: 'Item A',
+      description:'Item A description',
+      quantity: 10,
+      price: 100 }];
 
     // Mock the service to return the mock inventory
-    spyOn(InventoryService, 'getInventory').and.returnValue(of(mockInventory));
+    spyOn(inventoryService, 'getInventory').and.returnValue(of(mockInventory));
 
     // Trigger change detection to update the component
     fixture.detectChanges();

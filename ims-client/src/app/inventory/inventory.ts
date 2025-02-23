@@ -13,9 +13,9 @@ export interface inventoryItems{
   description?: string;
   quantity: number;
   price: number;
-  dateCreated?: string;
-  dateModified?: string;
+  dateCreated?: string | Date;
+  dateModified?: string | Date;
 }
-export type UpdateInventoryDTO = Omit<inventoryItems, '_id'| 'dateCreated'| 'dateModified'|'categoryId'>;
+export type UpdateInventoryDTO = Omit<inventoryItems, '_id'| 'dateCreated'|'categoryId'>;
 
 export type AddInventoryDTO = Omit<inventoryItems, '_id'| 'dateModified'>;
