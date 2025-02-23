@@ -60,9 +60,11 @@ import { UpdateInventoryDTO } from '../inventory';
   `,
   styles: `
   .updateInventory{
-    margin: 0 auto;
+    margin: 20px auto;
     max-width: 800px;
     padding: 20px;
+    display: flex;
+   flex-direction: column;
   }
   .page-title{
     text-align: center;
