@@ -29,7 +29,7 @@ export class InventoryService {
 
   // Update an inventory item
   updateInventoryItem(item: UpdateInventoryDTO, _id: string) {
-    return this.http.put<inventoryItems>(`${environment.apiBaseUrl}/api/inventory/${_id}`, item);
+    return this.http.patch<inventoryItems>(`${environment.apiBaseUrl}/api/inventory/${_id}`, item);
   }
 
   // Delete an inventory item

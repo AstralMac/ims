@@ -1,12 +1,19 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { InventoryDeleteComponent } from './inventory-delete.component';
 import { InventoryService } from '../inventory.service';
 import { of } from 'rxjs';
 import { inventoryItems } from '../inventory'; // Ensure correct path
+import { ActivatedRoute, Router } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('InventoryDeleteComponent', () => {
   let component: InventoryDeleteComponent;
   let fixture: ComponentFixture<InventoryDeleteComponent>;
+  let inventoryService: InventoryService;
+  let router: Router;
+
   let mockInventoryService: jasmine.SpyObj<InventoryService>;
 
   beforeEach(async () => {
@@ -24,12 +31,19 @@ describe('InventoryDeleteComponent', () => {
     mockInventoryService.deleteInventoryItem.and.returnValue(of({}));
 
     await TestBed.configureTestingModule({
-      imports: [InventoryDeleteComponent],
+      imports: [
+        InventoryDeleteComponent,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
       providers: [{ provide: InventoryService, useValue: mockInventoryService }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(InventoryDeleteComponent);
     component = fixture.componentInstance;
+    inventoryService = TestBed.inject(InventoryService);
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 

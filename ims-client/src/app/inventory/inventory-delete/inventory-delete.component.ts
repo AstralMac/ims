@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { InventoryService } from '../inventory.service';
 import { inventoryItems } from '../inventory';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, Router} from '@angular/router';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-inventory-delete',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [ReactiveFormsModule, RouterLink, CommonModule],
   template: `
     <div class="inventory-page">
       <h1 class="inventory-page__title">Inventory List</h1>
@@ -40,7 +41,7 @@ import { RouterLink } from '@angular/router';
                 <td class="inventory-page__table-cell">{{ inventory.description }}</td>
                 <td class="inventory-page__table-cell">{{ inventory.dateCreated }}</td>
                 <td class="inventory-page__table-cell inventory-page__table-cell--actions">
-                  <a (click)="deleteInventory(inventory._id)" class="inventory-page__icon-link">
+                  <a (click)="deleteInventory(inventory._id || '')" class="inventory-page__icon-link">
                     <i class="fas fa-trash-alt"></i>
                   </a>
                 </td>
@@ -75,7 +76,7 @@ export class InventoryDeleteComponent {
   serverMessage: string | null = null;
   serverMessageType: 'success' | 'error' | null = null;
 
-  constructor(private inventoryService: InventoryService) {
+  constructor(private inventoryService: InventoryService, private fb: FormBuilder, private route: ActivatedRoute) {
     this.inventoryService.getInventory().subscribe({
       next: (inventories: inventoryItems[]) => {
         this.inventories = inventories;
@@ -87,22 +88,22 @@ export class InventoryDeleteComponent {
     });
   }
 
-  deleteInventory(itemId: string) {
+  deleteInventory(_Id: string) {
     if (!confirm('Are you sure you want to delete this inventory item?')) {
       return;
     }
-    this.inventoryService.deleteInventoryItem(itemId).subscribe({
+    this.inventoryService.deleteInventoryItem(_Id).subscribe({
       next: () => {
-        console.log(`Inventory item with ID ${itemId} deleted successfully`);
-        this.inventories = this.inventories.filter(i => i._id !== itemId);
+        console.log(`Inventory item with ID ${_Id} deleted successfully`);
+        this.inventories = this.inventories.filter(i => i._id !== _Id);
         this.serverMessageType = 'success';
-        this.serverMessage = `Inventory item with ID ${itemId} deleted successfully`;
+        this.serverMessage = `Inventory item with ID ${_Id} deleted successfully`;
         this.clearMessageAfterDelay();
       },
       error: (err: any) => {
-        console.error(`Error occurred while deleting inventory item with ID ${itemId}: ${err}`);
+        console.error(`Error occurred while deleting inventory item with ID ${_Id}: ${err}`);
         this.serverMessageType = 'error';
-        this.serverMessage = `Error occurred while deleting inventory item with ID ${itemId}. Please try again later.`;
+        this.serverMessage = `Error occurred while deleting inventory item with ID ${_Id}. Please try again later.`;
         this.clearMessageAfterDelay();
       }
     });
