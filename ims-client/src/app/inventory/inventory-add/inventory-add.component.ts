@@ -146,7 +146,7 @@ export class InventoryAddComponent {
       this.inventoryService.addInventoryItem(inventoryItems).subscribe({
         next: (result: any) =>{
           console.log('Inventory Item Added', result.message);
-          this.router.navigate(['/inventory']);
+          this.router.navigate(['/inventory/create']);
         },
         error:(error) => {
           console.error(error);

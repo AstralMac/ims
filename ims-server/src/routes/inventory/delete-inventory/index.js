@@ -5,8 +5,8 @@ const { inventoryItem } = require('../../../../src/models/inventoryItem');
 // Route to delete an inventory item by ID
 router.delete('/:Id', async (req, res, next) => {
   try {
-    const result = await inventoryItem.deleteOne({ _id: req.params.Id });
-    if (result.deletedCount === 1) {
+    const item = await inventoryItem.deleteOne({ _id: req.params.Id });
+    if (item.deletedCount === 1) {
       res.send({
         message: 'Inventory item deleted successfully',
         Id: req.params.Id,

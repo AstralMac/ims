@@ -12,6 +12,7 @@ const { inventoryItem } = require('../../../models/inventoryItem');
 const { updateInventoryItemSchema } = require('../../../scripts/schemas');
 const createError = require('http-errors');
 const Ajv = require('ajv');
+
 const ajv = new Ajv();
 const validateUpdateInventoryItem = ajv.compile(updateInventoryItemSchema);
 
@@ -20,6 +21,7 @@ router.patch('/:id', async (req, res, next) => {
     // Validate input using the schema
     const valid = validateUpdateInventoryItem(req.body);
     if (!valid) {
+      console.error('Validation errors:', ajv.errors);
       return next(createError(400, ajv.errorsText(validateUpdateInventoryItem.errors)));
     }
 

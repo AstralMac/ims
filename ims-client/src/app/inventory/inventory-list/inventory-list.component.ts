@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   <h1>Inventory List</h1>
   <ul>
     <li *ngFor="let item of inventoryItems">
-      {{item.name}} - {{item.category}} - {{item.price}}
+      {{item._id}} - {{item.name}} - {{item.supplierId}} - {{item.categoryId}} - {{item.price}} - {{item.quantity}}
     </li>
   </ul>
   </div>`,

@@ -22,7 +22,7 @@ describe('PATCH /api/inventory/:id', () => {
       price: 1000.00
     });
 
-    const response = await request(app).patch('/api/inventory/650c1f1e1c9d440000a1b1c1').send({
+    const response = await request(app).patch('/api/inventory/update/650c1f1e1c9d440000a1b1c1').send({
       price: 1000.00
     });
 
@@ -33,7 +33,7 @@ describe('PATCH /api/inventory/:id', () => {
   });
 
   it('should return errors for invalid input', async () => {
-    const response = await request(app).patch('/api/inventory/650c1f1e1c9d440000a1b1c1').send({
+    const response = await request(app).patch('/api/inventory/update/650c1f1e1c9d440000a1b1c1').send({
       price: 'one-thousand dollars', // Invalid price
       description: "12345" // Should be a string
     });
@@ -46,7 +46,7 @@ describe('PATCH /api/inventory/:id', () => {
   it('should return errors for item not found', async () => {
     inventoryItem.findByIdAndUpdate.mockResolvedValue(null); // Simulate item not found
 
-    const response = await request(app).patch('/api/inventory/650c1f1e1c9d440000a145c2').send({
+    const response = await request(app).patch('/api/inventory/update/650c1f1e1c9d440000a145c2').send({
       name: 'Faulty Item',
       categoryId: 1000,
       supplierId: 1,

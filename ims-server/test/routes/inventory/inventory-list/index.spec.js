@@ -9,7 +9,7 @@ describe('Inventory API', () => {
   describe('GET /api/inventory', () => {
     it('should get all inventory items', async () => {
       inventoryItem.find.mockResolvedValue([{ name: 'laptop' }]); // Mock the find method
-      const response = await request(app).get('/api/inventory');
+      const response = await request(app).get('/api/inventory/list');
       expect(response.status).toBe(200);
       expect(Array.isArray(response.body)).toBe(true);
       expect(response.body[0].name).toBe('laptop');
@@ -17,13 +17,13 @@ describe('Inventory API', () => {
 
     it('should handle errors', async () => {
       inventoryItem.find.mockRejectedValue(new Error('Database error')); // Mock an error
-      const response = await request(app).get('/api/inventory');
+      const response = await request(app).get('/api/inventory/list');
       expect(response.status).toBe(500);
     });
 
     it('should return an empty array when there are no inventory items', async () => {
     inventoryItem.find.mockResolvedValue([]); // Mocking an empty result
-    const response = await request(app).get('/api/inventory');
+    const response = await request(app).get('/api/inventory/list');
     expect(response.status).toBe(200);
     expect(Array.isArray(response.body)).toBe(true);
     expect(response.body.length).toBe(0);
@@ -31,7 +31,7 @@ describe('Inventory API', () => {
 
     it('should handle errors', async () => {
     inventoryItem.find.mockRejectedValue(new Error('Database error'));
-    const response = await request(app).get('/api/inventory');
+    const response = await request(app).get('/api/inventory/list');
     expect(response.status).toBe(500);
     expect(response.body.message).toBe('Database error'); //  error handling returns
     });
@@ -43,7 +43,7 @@ describe('Inventory API', () => {
   describe('POST /api/inventory', () => {
     it('should create an inventory item successfully', async () => {
       inventoryItem.prototype.save.mockResolvedValue({ Id: 1 }); // Mock the save method
-      const response = await request(app).post('/api/inventory').send({
+      const response = await request(app).post('/api/inventory/list').send({
         categoryId: 1000,
         supplierId: 1,
         name: 'Widget',
@@ -56,7 +56,7 @@ describe('Inventory API', () => {
     });
 
     it('should return validation errors for invalid data', async () => {
-      const response = await request(app).post('/api/inventory').send({
+      const response = await request(app).post('/api/inventory/list').send({
         name: 'Wd', // Invalid: too short
         quantity: -1, // Invalid: negative quantity
         price: -10.5, // Invalid: negative price
@@ -72,7 +72,7 @@ describe('Inventory API', () => {
         set: jest.fn(),
         save: jest.fn().mockResolvedValue({ itemId: 1 }),
       }); // Mock the findOne and save methods
-      const response = await request(app).patch('/api/inventory/1').send({
+      const response = await request(app).patch('/api/inventory/list/1').send({
         name: 'Updated Widget',
         quantity: 15,
         price: 20.0,
@@ -82,7 +82,7 @@ describe('Inventory API', () => {
     });
 
     it('should return validation errors for invalid data', async () => {
-      const response = await request(app).patch('/api/inventory/1').send({
+      const response = await request(app).patch('/api/inventory/list/1').send({
         name: 'Up', // Invalid: too short
         quantity: -5, // Invalid: negative quantity
       });
