@@ -36,11 +36,11 @@ import { UpdateInventoryDTO } from '../inventory';
         </div>
 
          <div class='form-group'>
-          <label for='price' class='form-label'></label>
+          <label for='price' class='form-label'>Price</label>
           <input type='number' id='price' class='form-control' formControlName='price'>
         </div>
          <div class='form-group'>
-          <label for='quantity' class='form-label'></label>
+          <label for='quantity' class='form-label'>Quantity</label>
           <input type='number' id='quantity' class='form-control' formControlName='quantity'>
         </div>
 
@@ -63,8 +63,6 @@ import { UpdateInventoryDTO } from '../inventory';
     margin: 20px auto;
     max-width: 800px;
     padding: 20px;
-    display: flex;
-   flex-direction: column;
   }
   .page-title{
     text-align: center;
