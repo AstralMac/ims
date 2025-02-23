@@ -1,9 +1,9 @@
 
 /**
  * Author: Jake Seever
- * Date: 2/15/25
+ * Date: 2/21/25
  * File: index.js
- * Description: IMS Inventory by ID
+ * Description: IMS Search API
  */
 
 'use strict';
@@ -15,12 +15,13 @@ const createError = require('http-errors');
 const { inventoryItem } = require('../../../models/inventoryItem');
 
 //Find item by ID
-router.get('/:Id', async (req, res, next) => {
+router.get('/:name', async (req, res, next) => {
+  console.log("I made it to the API")
   try {
-   const item = await inventoryItem.findOne({_id: req.params.Id});
+   const item = await inventoryItem.contains({name: req.params.searchTerm});
   res.send(item);
   } catch (err) {
-    console.error(`Error getting item: ${err}`);
+    console.error(`Error finding item with that search term: ${err}`);
     next(err);
   }
  });

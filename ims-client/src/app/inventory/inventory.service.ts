@@ -36,4 +36,8 @@ export class InventoryService {
   deleteInventoryItem(_id: string) {
     return this.http.delete(`${environment.apiBaseUrl}/api/inventory/delete/${_id}`);
   }
+  // Fetch inventory items by search term
+  searchInventory(name: string){
+    return this.http.get<inventoryItems>(`${environment.apiBaseUrl}/api/inventory/search/${name}`);
+  }
 }
