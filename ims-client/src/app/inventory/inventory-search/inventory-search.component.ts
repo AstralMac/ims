@@ -5,13 +5,13 @@
  * Description: The inventory search component
  */
 
-
 import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { InventoryService } from '../inventory.service';
 import { CommonModule, NgIf } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { inventoryItems } from '../inventory';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-inventory-seacrch',
@@ -24,10 +24,10 @@ import { inventoryItems } from '../inventory';
         <input
           class="formInput"
           type="text"
-          id="searchTerm"
-          name="searchTerm"
+          id="name"
+          name="name"
           placeholder="Enter your name search"
-          formControlName="searchTerm"
+          formControlName="name"
         />
         <div class="form__actions">
           <button class="button button--primary" type="submit">Find Items</button>
@@ -88,57 +88,63 @@ import { inventoryItems } from '../inventory';
 })
 export class InventorySearchComponent {
   isTableVisible: boolean = false;
-  searchTerm: string = '';
+  //itemID: string = '';
   inventoryItems: inventoryItems[] = [];
-  item: any[] = [];
+  //item: any[] = [];
 
-  itemForm = this.fb.group({
-    searchTerm: [null, Validators.compose([Validators.required])],
+  /*itemForm = this.fb.group({
+    itemID: [null, Validators.compose([Validators.required])],
+  }); */
+
+  itemForm: FormGroup= this.fb.group({
+    _id: [null, Validators.required],
+    supplierId: [null, Validators.required],
+    name: [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+    description: [null, Validators.compose([Validators.required, Validators.maxLength(500)])],
+    price: [null, Validators.compose([Validators.required, Validators.min(0)])],
+    quantity: [null, Validators.compose([Validators.required, Validators.min(0)])],
+    dateModified: [null, Validators.required],
   });
 
   constructor(
     private inventoryService: InventoryService,
     private fb: FormBuilder
   ) {
-    this.inventoryService.getInventory().subscribe({
+   this.inventoryService.getInventory().subscribe({
       next: (inventory: inventoryItems[]) => {
         this.inventoryItems = inventory;
-        console.log(`Inventory items: ${JSON.stringify(this.inventoryItems)}`);
+        console.log(`Inventory: ${JSON.stringify(this.inventoryItems)}`);
       },
       error: (err: any) => {
         console.error(`Error occurred while retrieving inventories: ${err}`);
       },
-    });
+    }); 
   }
 
   ngAfterViewInit(): void {
-    // No need to create the table here, it will be handled by tableComponent
-  }
-  onSubmit() {
-    var searchTerm = this.itemForm.controls['searchTerm'].value;
-    //console.log(_Id);
-    console.log(searchTerm);
-    console.log(typeof searchTerm);
 
+  }
+  
+  onSubmit() {
+    var name = this.itemForm.controls['name'].value;
     this.inventoryService
-      .searchInventory("Computer")
+      .searchInventory(name)
       .subscribe({
         next: () => {
-          //console.log(this.itemID);
-          console.log(`Inventory item with ${searchTerm} found successfully`);
+          console.log(`Inventory item with name of ${name} found successfully`);
           this.inventoryItems = this.inventoryItems.filter(
-            (i) => i.name?.includes(this.searchTerm)
+            (i) => i.name == name
           );
-          //this.item.push(result);
-          console.log(this.searchTerm);
+          console.log(this.inventoryItems);
           console.log(`Inventory Items: ${JSON.stringify(this.inventoryItems)}`);
           this.isTableVisible = true;
         },
         error: (err: any) => {
           console.error(
-            `Error occurred while finding inventory item using this search term ${searchTerm}: ${err}`
+            `Error occurred while finding inventory with that name ${name}: ${err}`
           );
         },
       });
   }
 }
+

@@ -19,6 +19,7 @@ const deleteInventoryItemRouter= require('./routes/inventory/delete-inventory');
 const inventoryByIdRouter = require('./routes/inventory/inventory-by-id');
 const inventoryListRouter = require('./routes/inventory/inventory-list');
 const updateInventoryItemRouter = require('./routes/inventory/update-inventory');
+const searchInventory = require('./routes/inventory/inventory-search');
 
 
 // Variable declaration for the express app
@@ -55,6 +56,7 @@ app.use('/api/inventory/create', createInventoryItemRoute); // Add this line for
 app.use('/api/inventory/item', inventoryByIdRouter); // Add this line for inventory item by ID routes
 app.use('/api/inventory/list', inventoryListRouter); // Add this line for inventory list routes
 app.use('/api/inventory/update', updateInventoryItemRouter); // Add this line for inventory update routes
+app.use('/api/inventory/search', searchInventory);
 
 
 // Use the error handling middleware

@@ -9,10 +9,9 @@
 import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { InventoryService } from '../inventory.service';
 import { CommonModule, NgIf } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { inventoryItems } from '../inventory';
-import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-inventory-by-id',
@@ -30,10 +29,7 @@ import { FormGroup } from '@angular/forms';
           placeholder="Enter the item ID"
           formControlName="_id"
         />
-        <!--<div *ngIf="item">
-      <h3>Item Details:</h3>
-      <pre>{{ item | json }}</pre>
-    </div> -->
+
         <div class="form__actions">
           <button class="button button--primary" type="submit">Get Item</button>
         </div>
@@ -93,9 +89,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class InventoryByIdComponent {
   isTableVisible: boolean = false;
-  //_id: string | null = null;
   inventoryItems: inventoryItems[] = [];
-  item: any[] = [];
 
   itemForm: FormGroup= this.fb.group({
     _id: [null, Validators.required],
@@ -106,11 +100,6 @@ export class InventoryByIdComponent {
     quantity: [null, Validators.compose([Validators.required, Validators.min(0)])],
     dateModified: [null, Validators.required],
   });
-
-
-  /*itemForm = this.fb.group({
-    itemID: [null, Validators.compose([Validators.required])],
-  });*/
 
   constructor(
     private inventoryService: InventoryService,
@@ -132,22 +121,15 @@ export class InventoryByIdComponent {
   }
   
   onSubmit() {
-    var _id = this.itemForm.controls['itemID'].value;
-    //console.log(_Id);
-    console.log(_id);
-    console.log(typeof _id);
-
+    var _id = this.itemForm.controls['_id'].value;
     this.inventoryService
       .getInventoryById(_id)
       .subscribe({
         next: () => {
-          //console.log(this.itemID);
           console.log(`Inventory item with ID ${_id} found successfully`);
           this.inventoryItems = this.inventoryItems.filter(
             (i) => i._id == _id
           );
-          //this.item.push(result);
-          //console.log(this.item);
           console.log(`Inventory Item: ${JSON.stringify(this.inventoryItems)}`);
           this.isTableVisible = true;
         },
