@@ -1,23 +1,22 @@
-/*
 const express = require('express');
 const router = express.Router();
-const { InventoryItem } = require('../../models/inventoryItem'); // Adjust the path as necessary
+const { inventoryItem } = require('../../../models/inventoryItem'); // Adjust the path as necessary
 
 // Route to get all inventory items
 router.get('/', async (req, res, next) => {
   try {
-    const inventoryItems = await InventoryItem.find({});
-    res.send(inventoryItems);
+    const InventoryItems = await inventoryItem.find({});
+    res.send(InventoryItems);
   } catch (err) {
     console.error(`Error while getting inventory items: ${err}`);
     next(err);
   }
 });
-
+/*
 // Route to get an inventory item by ID
-router.get('/:itemId', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
-    const inventoryItem = await InventoryItem.findOne({ itemId: req.params.itemId });
+    const inventoryItem = await InventoryItem.findOne({ id: req.params.id });
     if (!inventoryItem) {
       return res.status(404).send({ message: 'Item not found' });
     }
@@ -35,7 +34,7 @@ router.post('/', async (req, res, next) => {
     await newItem.save();
     res.send({
       message: 'Inventory item created successfully',
-      itemId: newItem.itemId
+      id: newItem.id
     });
   } catch (err) {
     console.error(`Error while creating inventory item: ${err}`);
@@ -44,9 +43,9 @@ router.post('/', async (req, res, next) => {
 });
 
 // Route to update an inventory item by ID
-router.patch('/:itemId', async (req, res, next) => {
+router.patch('/:id', async (req, res, next) => {
   try {
-    const inventoryItem = await InventoryItem.findOne({ itemId: req.params.itemId });
+    const inventoryItem = await InventoryItem.findOne({ id: req.params.id });
     if (!inventoryItem) {
       return res.status(404).send({ message: 'Item not found' });
     }
@@ -54,7 +53,7 @@ router.patch('/:itemId', async (req, res, next) => {
     await inventoryItem.save();
     res.send({
       message: 'Inventory item updated successfully',
-      itemId: inventoryItem.itemId
+      id: inventoryItem.id
     });
   } catch (err) {
     console.error(`Error while updating inventory item: ${err}`);
@@ -62,20 +61,7 @@ router.patch('/:itemId', async (req, res, next) => {
   }
 });
 
-// Route to delete an inventory item by ID
-router.delete('/:itemId', async (req, res, next) => {
-  try {
-    await InventoryItem.deleteOne({ itemId: req.params.itemId });
-    res.send({
-      message: 'Inventory item deleted successfully',
-      itemId: req.params.itemId
-    });
-  } catch (err) {
-    console.error(`Error while deleting inventory item: ${err}`);
-    next(err);
-  }
-});
+*/
 
 // Export the router
 module.exports = router;
-*/

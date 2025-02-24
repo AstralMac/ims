@@ -60,10 +60,11 @@ const addInventoryItemSchema = {
         supplierId: { type: 'number' },
         description: { type: 'string', maxLength: 500 },
         quantity: { type: 'number', minimum: 0 },
-        price: { type: 'number', minimum: 0 }
+        price: { type: 'number', minimum: 0 },
+        dateCreated: {type: 'string'}
     },
     required: ['name', 'categoryId', 'supplierId', 'quantity', 'price'],
-    additionalProperties: false
+    additionalProperties: true
 };
 
 const updateInventoryItemSchema = {
@@ -74,10 +75,10 @@ const updateInventoryItemSchema = {
         supplierId: { type: 'number' },
         description: { type: 'string', maxLength: 500 },
         quantity: { type: 'number', minimum: 0 },
-        price: { type: 'number', minimum: 0 }
+        price: { type: 'number', minimum: 0 },
+        dateModified: {type:'string'}
     },
-    required: ['name', 'categoryId', 'supplierId', 'quantity', 'price'],
-    additionalProperties: false
+    additionalProperties: true
 };
 
 module.exports = {

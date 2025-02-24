@@ -103,7 +103,7 @@ describe('Inventory Service', ()=>{
       expect(items.length).toBe(sampleItems.length);
       expect(items).toEqual(sampleItems);
     });
-    const req = httpMock.expectOne(`${environment.apiBaseUrl}/api/inventory`);
+    const req = httpMock.expectOne(`${environment.apiBaseUrl}/api/inventory/list`);
     expect(req.request.method).toBe('GET');
     req.flush(sampleItems);
   });
@@ -124,13 +124,13 @@ describe('Inventory Service', ()=>{
   service.getInventoryById("650c1f1e1c9d440000a1b1c1").subscribe(item =>{
     expect(item).toEqual(sampleItems);
   });
-  const req = httpMock.expectOne(`${environment.apiBaseUrl}/api/inventory/650c1f1e1c9d440000a1b1c1`);
+  const req = httpMock.expectOne(`${environment.apiBaseUrl}/api/inventory/item/650c1f1e1c9d440000a1b1c1`);
   expect(req.request.method).toBe('GET');
   req.flush(sampleItems);
   });
 
   it('should add a new inventory item', ()=>{
-    
+
   });
 
   it('', ()=>{});

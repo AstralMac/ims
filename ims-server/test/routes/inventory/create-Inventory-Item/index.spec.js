@@ -13,26 +13,28 @@ const {inventoryItem} = require('../../../../src/models/inventoryItem');
 // Mock the Inventory Item schema Model
 jest.mock('../../../../src/models/inventoryItem');
 
-describe('POST /api/inventory', ()=> {
+describe('POST /api/inventory/create', ()=> {
   it('should create an inventory item successfully', async() => {
     //Mock the saved method
     inventoryItem.prototype.save.mockResolvedValue({_id: '650c1f1e1c9d440000a1b1c1'});
-    const response = await request(app).post('/api/inventory').send({
+    const dateCreated = new Date().toISOString();
+    const response = await request(app).post('/api/inventory/create').send({
       name: 'Laptop',
       categoryId: 1000,
       supplierId: 1,
       description: 'High-end gaming laptop',
       quantity: 10,
-      price: 1500.00
+      price: 1500.00,
+      dateCreated: dateCreated
     });
     //for debugging
     console.log('response:', response.body);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(201);
     expect(response.body.message).toBe('Item was created successfully');
   });
 
   it('should return validation errors for invalid input', async() => {
-    const response = await request(app).post('/api/inventory').send({
+    const response = await request(app).post('/api/inventory/create').send({
       name: 'Lp',
       categoryId: 1000,
       supplierId: 1,
@@ -48,7 +50,7 @@ describe('POST /api/inventory', ()=> {
   });
 
   it('should return an error when price or quantity is negative', async () => {
-  const response = await request(app).post('/api/inventory').send({
+  const response = await request(app).post('/api/inventory/create').send({
     name: 'Faulty Item',
     categoryId: 1000,
     supplierId: 1,
