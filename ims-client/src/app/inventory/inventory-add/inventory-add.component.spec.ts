@@ -76,7 +76,7 @@ describe('InventoryAddComponent', () => {
     component.onSubmit();
 
     expect(inventoryService.addInventoryItem).toHaveBeenCalledWith(addInventorySchema);
-    expect(router.navigate).toHaveBeenCalledWith(['/inventory']);
+    expect(router.navigate).toHaveBeenCalledWith(['/inventory/create']);
   });
 
   it('should handle error on form submission failure', () => {

@@ -118,13 +118,13 @@ export class InventorySearchComponent {
       error: (err: any) => {
         console.error(`Error occurred while retrieving inventories: ${err}`);
       },
-    }); 
+    });
   }
 
   ngAfterViewInit(): void {
 
   }
-  
+
   onSubmit() {
     var name = this.itemForm.controls['name'].value;
     this.inventoryService
@@ -141,7 +141,7 @@ export class InventorySearchComponent {
         },
         error: (err: any) => {
           console.error(
-            `Error occurred while finding inventory with that name ${name}: ${err}`
+            'Error occurred while finding inventory with that name'
           );
         },
       });

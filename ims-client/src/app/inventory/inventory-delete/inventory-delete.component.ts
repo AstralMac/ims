@@ -62,7 +62,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
     .inventory-page__table-header { background-color: #FFE484; color: #000; border: 1px solid black; padding: 5px; text-align: left; }
     .inventory-page__table-cell { border: 1px solid black; padding: 5px; text-align: left; }
     .inventory-page__table-cell--actions { text-align: center; }
-    .inventory-page__icon-link { cursor: pointer; color: #6c757d; text-decoration: none; margin: 0 5px; }
+    .inventory-page__icon-link { cursor: pointer; color: #6c757d; text-decoration: none; margin: 0 5px; font-size: 18px;  /* Ensure the icon is visible */}
     .inventory-page__icon-link:hover { color: #000; }
     .inventory-page__no-items { text-align: center; color: #6c757d; }
     .inventory-page__button { background-color: #563d7c; color: #fff; border: none; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; margin: 10px 2px; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }
