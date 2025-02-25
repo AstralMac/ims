@@ -8,7 +8,7 @@ import { RouterOutlet, RouterLink } from '@angular/router';
   template: `
     <div class="container">
       <header class="header">
-        <h1>Inventory Management System &#40;IMS&#41;</h1>
+        <h1 class='title'>Inventory Management System &#40;IMS&#41;</h1>
       </header>
       <nav class='sidebar'>
         <ul>
@@ -91,6 +91,9 @@ import { RouterOutlet, RouterLink } from '@angular/router';
       margin-left: 260px; /* Adjust content to avoid overlap with the sidebar */
       padding-bottom:20px;
       flex-grow: 1;
+    }
+    .title{
+      color: #FFFF00;
     }
   `
 })
