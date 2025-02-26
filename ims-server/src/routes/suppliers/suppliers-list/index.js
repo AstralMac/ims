@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Suppliers } = require('../../../models/suppliers'); // Correct import with capital "S"
 
-router.get('/suppliers', async (req, res, next) => { 
+router.get('/list', async (req, res, next) => { 
   try { 
     const suppliers = await Suppliers.find({}); // Use Suppliers model
     res.send(suppliers);

@@ -9,7 +9,7 @@ describe('Suppliers API', () => {
   describe('GET /api/suppliers', () => {
     it('should get all suppliers', async () => {
       Suppliers.find.mockResolvedValue([{ supplierName: 'Techsupplier' }]);
-      const response = await request(app).get('/api/suppliers');
+      const response = await request(app).get('/api/suppliers/list');
       expect(response.status).toBe(200);
       expect(Array.isArray(response.body)).toBe(true);
       expect(response.body[0].supplierName).toBe('Techsupplier');
@@ -17,13 +17,13 @@ describe('Suppliers API', () => {
 
     it('should handle errors', async () => {
       Suppliers.find.mockRejectedValue(new Error('Database error'));
-      const response = await request(app).get('/api/suppliers');
+      const response = await request(app).get('/api/suppliers/list');
       expect(response.status).toBe(500);
     });
 
     it('should return an empty array when there are no suppliers', async () => {
       Suppliers.find.mockResolvedValue([]);
-      const response = await request(app).get('/api/suppliers');
+      const response = await request(app).get('/api/suppliers/list');
       expect(response.status).toBe(200);
       expect(Array.isArray(response.body)).toBe(true);
       expect(response.body.length).toBe(0);
@@ -31,7 +31,7 @@ describe('Suppliers API', () => {
 
     it('should handle errors', async () => {
       Suppliers.find.mockRejectedValue(new Error('Database error'));
-      const response = await request(app).get('/api/suppliers');
+      const response = await request(app).get('/api/suppliers/list');
       expect(response.status).toBe(500);
       expect(response.body.message).toBe('Database error');
     });
