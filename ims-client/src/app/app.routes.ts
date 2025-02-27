@@ -6,12 +6,12 @@ import { InventoryDeleteComponent } from './inventory/inventory-delete/inventory
 import { InventoryListComponent } from './inventory/inventory-list/inventory-list.component';
 import { InventorySearchComponent } from './inventory/inventory-search/inventory-search.component';
 import { InventoryUpdateComponent } from './inventory/inventory-update/inventory-update.component';
+import { SuppliersListComponent } from './suppliers/suppliers-list/suppliers-list.component';
 import { SuppliersAddComponent } from './suppliers/suppliers-add/suppliers-add.component';
 import { SuppliersByIdComponent } from './suppliers/suppliers-by-id/suppliers-by-id.component';
-import { SuppliersDeleteComponent } from './suppliers/suppliers-delete/suppliers-delete.component';
-import { SuppliersListComponent } from './suppliers/suppliers-list/suppliers-list.component';
 import { SuppliersSearchComponent } from './suppliers/suppliers-search/suppliers-search.component';
 import { SuppliersUpdateComponent } from './suppliers/suppliers-update/suppliers-update.component';
+import { SuppliersDeleteComponent } from './suppliers/suppliers-delete/suppliers-delete.component';
 
 export const routes: Routes = [
   {
@@ -43,7 +43,27 @@ export const routes: Routes = [
     component: InventoryDeleteComponent
   },
   {
-    path:'suppliers/by-id',
+    path: 'suppliers',
+    component: SuppliersListComponent
+  },
+  {
+    path: 'suppliers/add',
+    component: SuppliersAddComponent
+  },
+  {
+    path: 'suppliers/by-id',
     component: SuppliersByIdComponent
+  },
+  {
+    path: 'suppliers/search',
+    component: SuppliersSearchComponent
+  },
+  {
+    path: 'suppliers/update',
+    component: SuppliersUpdateComponent
+  },
+  {
+    path: 'suppliers/delete',
+    component: SuppliersDeleteComponent
   }
 ];

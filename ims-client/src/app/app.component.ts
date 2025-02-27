@@ -13,21 +13,30 @@ import { RouterOutlet, RouterLink } from '@angular/router';
       <nav class='sidebar'>
         <ul>
           <li class='nav-item'><a class='nav-route' routerLink='/'>Home</a></li>
-          <li class= 'nav-item'><a class='nav-route' routerLink='/inventory'>Inventory List</a>
+          <li class='nav-item'><a class='nav-route' routerLink='/inventory'>Inventory List</a>
             <ul class='nested-nav'>
               <li class='nav-item'><a class='nav-route' routerLink='/inventory/add'>Add Inventory Item</a></li>
               <li class='nav-item'><a class='nav-route' routerLink='/inventory/by-id'>Inventory by ID</a></li>
-              <li class='nav-item'><a class='nav-route' routerLink='/inventory/search'>Search  Inventory</a></li>
+              <li class='nav-item'><a class='nav-route' routerLink='/inventory/search'>Search Inventory</a></li>
               <li class='nav-item'><a class='nav-route' routerLink='/inventory/update'>Update Inventory Item</a></li>
               <li class='nav-item'><a class='nav-route' routerLink='/inventory/delete'>Delete Inventory Item</a></li>
               <li class='nav-item'><a class= 'nav-route' routerLink='/suppliers/by-id'>Supplier By ID</a></li>
+            </ul>
+          </li>
+          <li class='nav-item'><a class='nav-route' routerLink='/suppliers'>Suppliers List</a>
+            <ul class='nested-nav'>
+              <li class='nav-item'><a class='nav-route' routerLink='/suppliers/add'>Add Supplier</a></li>
+              <li class='nav-item'><a class='nav-route' routerLink='/suppliers/by-id'>Supplier by ID</a></li>
+              <li class='nav-item'><a class='nav-route' routerLink='/suppliers/search'>Search Supplier</a></li>
+              <li class='nav-item'><a class='nav-route' routerLink='/suppliers/update'>Update Supplier</a></li>
+              <li class='nav-item'><a class='nav-route' routerLink='/suppliers/delete'>Delete Supplier</a></li>
             </ul>
           </li>
         </ul>
       </nav>
       <main>
         <section>
-          <router-outlet />
+          <router-outlet></router-outlet>
         </section>
       </main>
       <footer>
@@ -47,18 +56,20 @@ import { RouterOutlet, RouterLink } from '@angular/router';
 
     header, footer {
       background-color: #800080;
-      padding:10px 0;
+      padding: 10px 0;
     }
-     nav.sidebar {
-      width: 250px; /* Sidebar width */
+
+    nav.sidebar {
+      width: 250px;
       float: left;
       position: fixed;
-      height: 100%; /* Full height */
-      background-color: #800080; /* Sidebar background */
+      height: 100%;
+      background-color: #800080;
       color: white;
       padding-top: 50px;
-      text-align: left
+      text-align: left;
     }
+
     nav ul {
       list-style-type: none;
       padding: 0;
@@ -79,21 +90,22 @@ import { RouterOutlet, RouterLink } from '@angular/router';
       background-color: #575757;
     }
 
-    .nested {
-      display: none; /* Hide nested items by default */
+    .nested-nav {
+      display: none;
       padding-left: 20px;
     }
 
-    nav ul li:hover .nested {
-      display: block; /* Show nested items on hover */
+    nav ul li:hover .nested-nav {
+      display: block;
     }
 
     main {
-      margin-left: 260px; /* Adjust content to avoid overlap with the sidebar */
-      padding-bottom:20px;
+      margin-left: 260px;
+      padding-bottom: 20px;
       flex-grow: 1;
     }
-    .title{
+
+    .title {
       color: #FFFF00;
     }
   `
