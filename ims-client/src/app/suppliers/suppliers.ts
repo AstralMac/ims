@@ -10,7 +10,7 @@ export interface supplierEntry{
   supplierId?: number;
   supplierName?: string;
   contactInformation?: string;
-  address?: number;
+  address?: string;
   dateCreated?: string | Date;
   dateModified?: string | Date;
 }

@@ -20,6 +20,7 @@ import { RouterOutlet, RouterLink } from '@angular/router';
               <li class='nav-item'><a class='nav-route' routerLink='/inventory/search'>Search  Inventory</a></li>
               <li class='nav-item'><a class='nav-route' routerLink='/inventory/update'>Update Inventory Item</a></li>
               <li class='nav-item'><a class='nav-route' routerLink='/inventory/delete'>Delete Inventory Item</a></li>
+              <li class='nav-item'><a class= 'nav-route' routerLink='/suppliers/by-id'>Supplier By ID</a></li>
             </ul>
           </li>
         </ul>
