@@ -14,7 +14,7 @@ const addSupplierSchema = {
         address: { type: 'string', minLength: 1 }
     },
     required: ['supplierName', 'address'],
-    additionalProperties: false
+    additionalProperties: true
 };
 
 const updateSupplierSchema = {
@@ -25,7 +25,7 @@ const updateSupplierSchema = {
         address: { type: 'string', minLength: 1 }
     },
     required: ['supplierName', 'address'],
-    additionalProperties: false
+    additionalProperties: true
 };
 
 const addCategorySchema = {
