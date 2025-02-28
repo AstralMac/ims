@@ -19,7 +19,7 @@ export class SuppliersService {
 
   // Fetch a single Supplier entry by ID
   getSuppliersById(_id: string){
-    return this.http.get<supplierEntry>(`${environment.apiBaseUrl}/api/suppliers/entry/${_id}`);
+    return this.http.get<supplierEntry>(`${environment.apiBaseUrl}/api/suppliers/byid/${_id}`);
   }
 
   // Add a new Supplier entry

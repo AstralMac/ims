@@ -29,8 +29,7 @@ describe('GET /api/suppliers/byid/:id', () => {
 
     console.log('response:', response.body);
     expect(response.status).toBe(200);
-    expect(response.body.message).toBe('Supplier found');
-    expect(response.body.item.supplierName).toBe('TechSupplier');
+    expect(response.body.supplierName).toBe('TechSupplier');
   });
 
   it('should return 400 for invalid input', async () => {

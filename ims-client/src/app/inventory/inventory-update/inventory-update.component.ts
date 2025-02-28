@@ -13,6 +13,7 @@ import { UpdateInventoryDTO } from '../inventory';
   <div class= 'updateInventory'>
     <h1 class='page-title'>Update Inventory Item</h1>
     <h4>Update pre-existing items in the inventory</h4>
+
     <div class='updateInventory'>
       <form [formGroup]='inventoryForm' class='updateInventoryForm'>
         <div class='form-group'>
@@ -112,49 +113,49 @@ import { UpdateInventoryDTO } from '../inventory';
   `
 })
 export class InventoryUpdateComponent {
-inventoryForm: FormGroup= this.fb.group({
-  _id: [null, Validators.required],
-  supplierId: [null, Validators.required],
-  name: [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-  description: [null, Validators.compose([Validators.required, Validators.maxLength(500)])],
-  price: [null, Validators.compose([Validators.required, Validators.min(0)])],
-  quantity: [null, Validators.compose([Validators.required, Validators.min(0)])],
-  dateModified: [null, Validators.required],
-});
+  inventoryForm: FormGroup= this.fb.group({
+    _id: [null, Validators.required],
+    supplierId: [null, Validators.required],
+    name: [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+    description: [null, Validators.compose([Validators.required, Validators.maxLength(500)])],
+    price: [null, Validators.compose([Validators.required, Validators.min(0)])],
+    quantity: [null, Validators.compose([Validators.required, Validators.min(0)])],
+    dateModified: [null, Validators.required],
+  });
 
-constructor(private fb: FormBuilder, private inventoryService: InventoryService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private fb: FormBuilder, private inventoryService: InventoryService, private router: Router, private route: ActivatedRoute) {}
 
-onSubmit(){
-  if(this.inventoryForm.valid){
-    const dateModified = new Date(this.inventoryForm.controls['dateModified'].value).toISOString();
-    const formValue = this.inventoryForm.value;
-    const updateInventorySchema: UpdateInventoryDTO = {
-      ...formValue,
-      supplierId: (formValue.supplierId),
-      name: formValue.name,
-      description: formValue.description,
-      quantity: Number(formValue.quantity),
-      price: Number(formValue.price),
-      dateModified,
-    };
+  onSubmit(){
+      if(this.inventoryForm.valid){
+        const dateModified = new Date(this.inventoryForm.controls['dateModified'].value).toISOString();
+        const formValue = this.inventoryForm.value;
+        const updateInventorySchema: UpdateInventoryDTO = {
+          ...formValue,
+          supplierId: (formValue.supplierId),
+          name: formValue.name,
+          description: formValue.description,
+          quantity: Number(formValue.quantity),
+          price: Number(formValue.price),
+          dateModified,
+        };
 
-    if(!formValue._id){
-      console.error('Error: _id is required to update inventory item');
-      return;
+        if(!formValue._id){
+          console.error('Error: _id is required to update inventory item');
+          return;
+        }
+        console.log('Inventory Item has been updated', updateInventorySchema);
+
+        if(this.inventoryForm.invalid){
+          return;
+        }
+        this.inventoryService.updateInventoryItem(updateInventorySchema, formValue._id).subscribe({
+          next: () => {
+            this.router.navigate(['/inventory']);
+          },
+          error: (error) => {
+            console.error('Error updating item');
+          },
+      });
     }
-    console.log('Inventory Item has been updated', updateInventorySchema);
-
-    if(this.inventoryForm.invalid){
-      return;
-    }
-    this.inventoryService.updateInventoryItem(updateInventorySchema, formValue._id).subscribe({
-      next: () => {
-        this.router.navigate(['/inventory']);
-      },
-      error: (error) => {
-        console.error('Error updating item');
-      },
-    });
-}
-}
+  }
 }
