@@ -28,10 +28,6 @@ import { AddSuppliersDTO } from '../suppliers';
  
      <div class='page-card'>
        <form [formGroup]='supplierForm' class='supplierForm'>
-         <div class='form-group'>
-           <label for='supplierId' class ='form-label'>Suppler ID</label>
-           <input type='number' id='supplierId' class= 'form-control' formControlName='supplierId'>
-         </div>
  
          <div class='form-group'>
            <label for='supplierName' class ='form-label'>Supplier Name</label>
@@ -46,11 +42,6 @@ import { AddSuppliersDTO } from '../suppliers';
          <div class='form-group'>
            <label for='supplierAddress' class ='form-label'>Address</label>
            <input type='text' id='address' class='form-control' formControlName='address'>
-         </div>
- 
-         <div class='form-group'>
-           <label for='dateCreated' class = 'form-label'>Date Created</label>
-           <input type='datetime-local' id='dateCreated' class= 'form-control' formControlName='dateCreated'>
          </div>
 
          <br />
@@ -117,40 +108,36 @@ import { AddSuppliersDTO } from '../suppliers';
    }
    `
  })
- export class SuppliersAddComponent {
+ export class SuppliersAddComponent { // Export the supplierForm group with validators.
    supplierForm: FormGroup= this.fb.group({
-     supplierId:[null, Validators.required],
-     supplierName: [null, Validators.compose([Validators.required,Validators.minLength(3), Validators.maxLength(500)])],
+     supplierName: [null, Validators.compose([Validators.required,Validators.minLength(3), Validators.maxLength(100)])],
      contactInformation:[null, Validators.compose([Validators.required, Validators.maxLength(500)])],
      address: [null, Validators.compose([Validators.required])],
-     dateCreated: [null, Validators.required]
    });
  
    constructor(private fb: FormBuilder, private suppliersService: SuppliersService, private router: Router){}
  
    onSubmit(){
      if(this.supplierForm.valid){
-       const dateCreated = new Date(this.supplierForm.controls['dateCreated'].value).toISOString();
-       const formValue = this.supplierForm.value;
-       const supplier: AddSuppliersDTO = {
+       const formValue = this.supplierForm.value; // set the form values variable to the supplierForm values. 
+       const supplier: AddSuppliersDTO = { // create the data transfer object and set the values to the ones entered on the form.
          ...formValue,
-         supplierId: Number(formValue.supplierId),
          supplierName: formValue.supplierName,
          contactInformation: formValue.contactInformation,
          address: formValue.address,
-         dateCreated: dateCreated
        };
-       console.log('New Supplier Added',supplier);
-       this.suppliersService.addSupplierEntry(supplier).subscribe({
+       console.log('New Supplier Added',supplier); // Confirm the new supplier was added and console the values.
+       this.suppliersService.addSupplierEntry(supplier).subscribe({ //Subscribe to the add supplier entry and pass in the supplier object.
          next: (result: any) =>{
            console.log('Supplier Added', result.message);
-           this.router.navigate(['/suppliers/add']);
+           this.router.navigate(['/suppliers/add']); 
          },
          error:(error) => {
-           console.error(error);
+           console.error(error); //Console any error message.
          }
      });
      }
+     this.supplierForm.reset(); // Empty the form values once the new supplier is added.
    }
  }
  

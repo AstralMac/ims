@@ -15,12 +15,11 @@ const { inventoryItem } = require('../../../models/inventoryItem');
 
 //Find item by name search
 router.get('/:name', async (req, res, next) => {
-  console.log("I made it to the API")
   try {
-   const name = await inventoryItem.find({name: req.params.name});
+   const name = await inventoryItem.find({name: req.params.name}); //Find inventory items by the name 
   res.send(name);
   } catch (err) {
-    console.error(`Error finding item with that search term: ${err}`);
+    console.error(`Error finding item with that search term: ${err}`); // Throw an error message if no item is found.
     next(err);
   }
  });

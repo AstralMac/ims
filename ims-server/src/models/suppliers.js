@@ -51,7 +51,7 @@ let supplierSchema = new Schema({
 //Custom validator
 supplierSchema.path('supplierName').validate(function(val){
     return /^[A-Za-z\s]+$/.test(val); //Only allow letters and spaces
-}, 'Garden name can only contain letters and spaces');
+}, 'Suppliers name can only contain letters and spaces');
 
 /**
  * Pre-hook/function to increment category ID and update the date of modified documents
