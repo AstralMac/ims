@@ -33,16 +33,16 @@ router.post("/", async (req, res, next) => {
     // Ensure all required fields are present
     if (!supplierName || !contactInformation || !address) {
       return res.status(400).send({ message: "Missing required fields" }); // If form fields not valid, send error message.
+    } else {
+      const payload = { supplierName, contactInformation, address };
+      const supplier = new Suppliers(payload); // Save the payload to the supplier object.
+      await supplier.save(); // Save the object
+
+      res.status(200).send({
+        message: "Supplier was added successfully", // If supplier saved correctly, send confirmation message.
+        id: supplier._id,
+      });
     }
-
-    const payload = { supplierName, contactInformation, address };
-    const supplier = new Suppliers(payload); // Save the payload to the supplier object.
-    await supplier.save(); // Save the object
-
-    res.status(200).send({
-      message: "Supplier was added successfully", // If supplier saved correctly, send confirmation message.
-      id: supplier._id,
-    });
   } catch (err) {
     console.error(`Error while adding new supplier: ${err}`); // Throw error message if supplier not saved.
     next(err);
