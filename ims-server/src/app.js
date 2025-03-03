@@ -22,6 +22,7 @@ const updateInventoryItemRouter = require('./routes/inventory/update-inventory')
 const searchInventory = require('./routes/inventory/inventory-search');
 const suppliersList = require('./routes/suppliers/suppliers-list');
 const supplierById = require('./routes/suppliers/suppliers-by-id');
+const AddSupplier = require('./routes/suppliers/suppliers-add')
 
 
 // Variable declaration for the express app
@@ -60,9 +61,11 @@ app.use('/api/inventory/list', inventoryListRouter); // Add this line for invent
 app.use('/api/inventory/update', updateInventoryItemRouter); // Add this line for inventory update routes
 app.use('/api/inventory/search', searchInventory);
 
+
 //Routes for supplier
 app.use('/api/suppliers/', suppliersList);
 app.use('/api/suppliers/byid', supplierById);
+app.use('/api/suppliers/create', AddSupplier);
 
 
 // Use the error handling middleware
