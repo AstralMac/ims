@@ -23,6 +23,7 @@ const searchInventory = require('./routes/inventory/inventory-search');
 const suppliersList = require('./routes/suppliers/suppliers-list');
 const supplierById = require('./routes/suppliers/suppliers-by-id');
 const AddSupplier = require('./routes/suppliers/suppliers-add')
+const UpdateSupplier = require('./routes/suppliers/suppliers-update')
 
 
 // Variable declaration for the express app
@@ -41,7 +42,7 @@ beforeAll(async () =>{
 // CORS configuration
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Allowed request methods
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS'); // Allowed request methods
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'); // Allowed headers
   next();
 });
@@ -66,6 +67,7 @@ app.use('/api/inventory/search', searchInventory);
 app.use('/api/suppliers/', suppliersList);
 app.use('/api/suppliers/byid', supplierById);
 app.use('/api/suppliers/create', AddSupplier);
+app.use('/api/suppliers/update', UpdateSupplier);
 
 
 // Use the error handling middleware
