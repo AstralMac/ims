@@ -28,8 +28,8 @@ export class SuppliersService {
   }
 
   // Update an Supplier entry
-  updateSupplierEntry(entry: UpdateSuppliersDTO, _id: string) {
-    return this.http.patch<supplierEntry>(`${environment.apiBaseUrl}/api/suppliers/update/${_id}`, entry);
+  updateSupplierEntry(entry: UpdateSuppliersDTO, supplierId: number) {
+    return this.http.patch<supplierEntry>(`${environment.apiBaseUrl}/api/suppliers/update/${supplierId}`, entry);
   }
 
   // Delete an Supplier entry

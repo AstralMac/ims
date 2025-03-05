@@ -14,7 +14,6 @@ import {
 } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { supplierEntry } from '../suppliers';
 import { SuppliersService } from '../suppliers.service';
 import { UpdateSuppliersDTO } from '../suppliers';
 
