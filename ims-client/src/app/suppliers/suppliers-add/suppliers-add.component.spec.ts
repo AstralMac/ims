@@ -67,7 +67,7 @@ describe('SuppliersAddComponent', () => {
     component.onSubmit();
 
     expect(suppliersService.addSupplierEntry).toHaveBeenCalledWith(addSupplierSchema);
-    expect(router.navigate).toHaveBeenCalledWith(['/suppliers/add']);
+    expect(router.navigate).toHaveBeenCalledWith(['/suppliers']);
   });
 
   it('Should handle error on form submission failure', () => {

@@ -13,7 +13,6 @@ import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angula
 import { RouterLink, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { supplierEntry } from '../suppliers';
-//import { Suppliers} from '../suppliers'
 import { AddSuppliersDTO } from '../suppliers';
 
 
@@ -124,13 +123,13 @@ import { AddSuppliersDTO } from '../suppliers';
          ...formValue,
          supplierName: formValue.supplierName,
          contactInformation: formValue.contactInformation,
-         address: formValue.address,
+         address: formValue.address
        };
        console.log('New Supplier Added',supplier); // Confirm the new supplier was added and console the values.
        this.suppliersService.addSupplierEntry(supplier).subscribe({ //Subscribe to the add supplier entry and pass in the supplier object.
          next: (result: any) =>{
            console.log('Supplier Added', result.message);
-           this.router.navigate(['/suppliers/add']); 
+           this.router.navigate(['/suppliers']); // Link back to the suppliers list to visually verify the new supplier has been added.
          },
          error:(error) => {
            console.error(error); //Console any error message.
