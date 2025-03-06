@@ -79,7 +79,7 @@ supplierSchema.pre('validate', async function(next){
   }
 });
 module.exports = {
-  Suppliers: mongoose.models.Suppliers||mongoose.model('Suppliers', supplierSchema),
+  Suppliers: mongoose.models.Suppliers|| mongoose.model('Suppliers', supplierSchema),
   Counter
 };
 
