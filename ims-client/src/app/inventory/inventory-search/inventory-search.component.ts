@@ -30,7 +30,9 @@ import { FormGroup } from '@angular/forms';
           formControlName="name"
         />
         <div class="form__actions">
-          <button class="button button--primary" type="submit">Find Items</button>
+          <button class="button button--primary" type="submit">
+            Find Items
+          </button>
         </div>
       </form>
 
@@ -42,9 +44,9 @@ import { FormGroup } from '@angular/forms';
               <th class="inventory-page__table-header">Item ID</th>
               <th class="inventory-page__table-header">Name</th>
               <th class="inventory-page__table-header">Quantity</th>
+              <th class="inventory-page__table-header">Price</th>
               <th class="inventory-page__table-header">Description</th>
               <th class="inventory-page__table-header">Date Added</th>
-              <th class="inventory-page__table-header">Actions</th>
             </tr>
           </thead>
           <tbody class="inventory-page__table-body">
@@ -56,20 +58,23 @@ import { FormGroup } from '@angular/forms';
                 {{ inventory.quantity }}
               </td>
               <td class="inventory-page__table-cell">
+                {{ '$' + inventory.price }}
+              </td>
+              <td class="inventory-page__table-cell">
                 {{ inventory.description }}
               </td>
               <td class="inventory-page__table-cell">
                 {{ inventory.dateCreated }}
               </td>
-              <td
-                class="inventory-page__table-cell inventory-page__table-cell--actions"
-              ></td>
             </tr>
             }
           </tbody>
         </table>
         }
       </div>
+    </div>
+    <div *ngIf="isMessageVisible">
+      <h3>{{ this.errMessage }}</h3>
     </div>
   `,
   styles: `
@@ -86,65 +91,95 @@ import { FormGroup } from '@angular/forms';
     .inventory-page__table-cell--actions { text-align: center; }
   `,
 })
-export class InventorySearchComponent {
+export class InventorySearchComponent implements AfterViewInit {
   isTableVisible: boolean = false;
-  //itemID: string = '';
+  isMessageVisible: boolean = false;
+  errMessage: string = '';
   inventoryItems: inventoryItems[] = [];
-  //item: any[] = [];
 
-  /*itemForm = this.fb.group({
-    itemID: [null, Validators.compose([Validators.required])],
-  }); */
-
-  itemForm: FormGroup= this.fb.group({
+  itemForm: FormGroup = this.fb.group({
     _id: [null, Validators.required],
     supplierId: [null, Validators.required],
-    name: [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-    description: [null, Validators.compose([Validators.required, Validators.maxLength(500)])],
+    name: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(100),
+      ]),
+    ],
+    description: [
+      null,
+      Validators.compose([Validators.required, Validators.maxLength(500)]),
+    ],
     price: [null, Validators.compose([Validators.required, Validators.min(0)])],
-    quantity: [null, Validators.compose([Validators.required, Validators.min(0)])],
+    quantity: [
+      null,
+      Validators.compose([Validators.required, Validators.min(0)]),
+    ],
     dateModified: [null, Validators.required],
   });
 
   constructor(
     private inventoryService: InventoryService,
     private fb: FormBuilder
-  ) {
-   this.inventoryService.getInventory().subscribe({
-      next: (inventory: inventoryItems[]) => {
-        this.inventoryItems = inventory;
-        console.log(`Inventory: ${JSON.stringify(this.inventoryItems)}`);
-      },
-      error: (err: any) => {
-        console.error(`Error occurred while retrieving inventories: ${err}`);
-      },
-    });
-  }
+  ) {}
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void {}
 
-  }
+loadInventory() {
+  this.inventoryService.getInventory().subscribe({
+    next: (inventory: inventoryItems[]) => {
+      this.inventoryItems = inventory;
+      console.log(`Inventory: ${JSON.stringify(this.inventoryItems)}`);
+    },
+    error: (err: any) => {
+      console.error(`Error occurred while retrieving inventories: ${err}`);
+    },
+  });
+}
 
   onSubmit() {
-    var name = this.itemForm.controls['name'].value;
-    this.inventoryService
-      .searchInventory(name)
-      .subscribe({
-        next: () => {
-          console.log(`Inventory item with name of ${name} found successfully`);
+    this.isTableVisible = false;
+    this.isMessageVisible = false;
+    const name = this.itemForm.controls['name'].value;
+
+    if (name != null) {
+      this.loadInventory();
+      name.trim();
+    }
+    this.inventoryService.searchInventory(name).subscribe({
+      next: () => {
+        if (name != null) {
           this.inventoryItems = this.inventoryItems.filter(
             (i) => i.name == name
           );
-          console.log(this.inventoryItems);
-          console.log(`Inventory Items: ${JSON.stringify(this.inventoryItems)}`);
-          this.isTableVisible = true;
-        },
-        error: (err: any) => {
-          console.error(
-            'Error occurred while finding inventory with that name'
-          );
-        },
-      });
+          if (this.inventoryItems.length > 0) {
+            console.log(
+              `Inventory item with name of ${name} found successfully`
+            );
+            this.isTableVisible = true;
+            console.log(
+              `Inventory Items: ${JSON.stringify(this.inventoryItems)}`
+            );
+            this.itemForm.reset();
+            this.isMessageVisible = false;
+          } else {
+            this.errMessage =
+              'Inventory item with that name could not be found';
+            this.isMessageVisible = true;
+            this.itemForm.reset();
+            console.log(this.errMessage);
+          }
+        } else {
+          this.errMessage = 'Item name cannot be empty';
+          this.isMessageVisible = true;
+          console.log(this.errMessage);
+        }
+      },
+      error: (err: any) => {
+        console.error('Error occurred while finding inventory with that name');
+      },
+    });
   }
 }
-
