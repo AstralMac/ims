@@ -46,6 +46,7 @@ describe('SuppliersUpdateComponent', () => {
   });
 
   it('Should have a valid form when all fields are filled in and validated', () => {
+    component.supplierForm.controls['_Id'].setValue('1')
     component.supplierForm.controls['supplierId'].setValue('17');
     component.supplierForm.controls['supplierName'].setValue('Jakes Gadgets');
     component.supplierForm.controls['contactInformation'].setValue('715-299-9999');
@@ -55,6 +56,7 @@ describe('SuppliersUpdateComponent', () => {
 
   it('Should call updateSupplier and navigate on successful form submission', () => {
     const updateSupplierSchema: UpdateSuppliersDTO = {
+      _id: '1',
       supplierId: 17,
       supplierName: 'Test',
       contactInformation: '715-299-9999',
