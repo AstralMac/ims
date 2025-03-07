@@ -6,7 +6,7 @@
  */
 
 export interface supplierEntry{
-  _id?: string;
+  _id: string;
   supplierId?: number;
   supplierName?: string;
   contactInformation?: string;
