@@ -23,7 +23,8 @@ const searchInventory = require('./routes/inventory/inventory-search');
 const suppliersList = require('./routes/suppliers/suppliers-list');
 const supplierById = require('./routes/suppliers/suppliers-by-id');
 const AddSupplier = require('./routes/suppliers/suppliers-add')
-const UpdateSupplier = require('./routes/suppliers/suppliers-update')
+const UpdateSupplier = require('./routes/suppliers/suppliers-update');
+const deleteSupplier = require('./routes/suppliers/suppliers-delete');
 
 
 // Variable declaration for the express app
@@ -68,6 +69,7 @@ app.use('/api/suppliers/', suppliersList);
 app.use('/api/suppliers/byid', supplierById);
 app.use('/api/suppliers/create', AddSupplier);
 app.use('/api/suppliers/update', UpdateSupplier);
+app.use('/api/suppliers/delete', deleteSupplier);
 
 
 // Use the error handling middleware
@@ -78,7 +80,7 @@ app.use(errorHandler);
 async function connectToDatabase() {
   try {
     await mongoose.connect(connectionString, { dbName: dbName });
-    console.log(`Connection to the ${dbName} database was successful`);
+    //console.log(`Connection to the ${dbName} database was successful`);
   } catch (err) {
     console.error(`MongoDB connection error: ${err}`);
   }
