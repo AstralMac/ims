@@ -25,6 +25,7 @@ const supplierById = require('./routes/suppliers/suppliers-by-id');
 const AddSupplier = require('./routes/suppliers/suppliers-add')
 const UpdateSupplier = require('./routes/suppliers/suppliers-update');
 const deleteSupplier = require('./routes/suppliers/suppliers-delete');
+const searchSuppliers = require('./routes/suppliers/suppliers-search');
 
 
 // Variable declaration for the express app
@@ -70,6 +71,7 @@ app.use('/api/suppliers/byid', supplierById);
 app.use('/api/suppliers/create', AddSupplier);
 app.use('/api/suppliers/update', UpdateSupplier);
 app.use('/api/suppliers/delete', deleteSupplier);
+app.use('/api/suppliers/search', searchSuppliers);
 
 
 // Use the error handling middleware
