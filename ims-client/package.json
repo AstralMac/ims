@@ -2,6 +2,7 @@
   "name": "ims-client",
   "version": "0.0.0",
   "scripts": {
+    "render-deploy" : "ng build --configuration=production",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -38,5 +39,9 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.4.2"
+  },
+  "engines" : {
+    "node": "^20.14.0",
+    "npm":"^10.7.0"
   }
 }
