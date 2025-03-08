@@ -56,7 +56,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Routing configuration
-app.use('/', indexRouter);
+app.use('', indexRouter);
 app.use('/api/inventory/delete', deleteInventoryItemRouter); //Add this line for inventroy delete routes
 app.use('/api/inventory/create', createInventoryItemRoute); // Add this line for inventory item routes
 app.use('/api/inventory/item', inventoryByIdRouter); // Add this line for inventory item by ID routes
