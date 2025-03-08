@@ -15,7 +15,7 @@ import { SuppliersDeleteComponent } from './suppliers/suppliers-delete/suppliers
 
 export const routes: Routes = [
   {
-    path: '',
+    path: '/',
     component: HomeComponent
   },
   {
