@@ -17,7 +17,7 @@ describe('SuppliersSearchComponent', () => {
 
   beforeEach(async () => {
     // Create a spy for SuppliersService
-    suppliersService = jasmine.createSpyObj('SuppliersService', ['searchSuppliers']);
+    suppliersService = jasmine.createSpyObj('SuppliersService', ['searchSuppliers', 'getSuppliers']);
 
     await TestBed.configureTestingModule({
       imports: [
